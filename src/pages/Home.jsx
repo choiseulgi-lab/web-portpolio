@@ -142,7 +142,7 @@ function HeroSection() {
             fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
             fontWeight: 600,
             color: '#ffffff',
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.01em',
             lineHeight: 1.1,
             mb: { xs: 4, md: 7 },
           }}
@@ -158,7 +158,7 @@ function HeroSection() {
               fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
               fontWeight: 500,
               lineHeight: 1.35,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.01em',
             }}
           >
             <Box component="span" sx={{ color: LIME }}>이유</Box>
@@ -170,7 +170,7 @@ function HeroSection() {
               fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
               fontWeight: 500,
               lineHeight: 1.35,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.01em',
             }}
           >
             <Box component="span" sx={{ color: '#ffffff' }}>디자이너 </Box>
@@ -185,7 +185,7 @@ function HeroSection() {
             fontFamily: FONT,
             fontSize: '1.125rem',
             color: 'rgba(255,255,255,0.28)',
-            letterSpacing: '0.08em',
+            letterSpacing: '-0.01em',
             fontWeight: 400,
           }}
         >
@@ -248,7 +248,7 @@ function HowIDesignSection() {
               fontSize: { xs: '2.8rem', md: '4.6875rem' },
               fontWeight: 600,
               color: '#ffffff',
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.01em',
               lineHeight: 1.34,
               mb: 6,
             }}
@@ -287,7 +287,7 @@ const inputSx = {
     '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'rgba(224,224,224,0.45)' },
     '&:after': { borderBottomColor: '#C4E038' },
   },
-  '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: 1, fontFamily: FONT },
+  '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: '-0.01em', fontFamily: FONT },
   '& .MuiInputLabel-root.Mui-focused': { color: '#C4E038' },
 }
 
@@ -450,7 +450,7 @@ function GuestbookForm({ onSubmitSuccess }) {
       />
 
       <Box sx={{ mb: 4 }}>
-        <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, letterSpacing: 1, color: 'rgba(224,224,224,0.3)', mb: 1.5 }}>
+        <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, letterSpacing: '-0.01em', color: 'rgba(224,224,224,0.3)', mb: 1.5 }}>
           EMOJI *
         </Typography>
         <Box sx={{ display: 'flex', gap: 1.5 }}>
@@ -590,7 +590,7 @@ function GuestbookFeed({ refreshTrigger }) {
                   color: 'rgba(196,224,56,0.6)',
                   fontSize: '0.875rem',
                   fontFamily: FONT,
-                  letterSpacing: 0.5,
+                  letterSpacing: '-0.01em',
                   mb: 1.2,
                 }}
               >
@@ -705,7 +705,7 @@ function ContactSection() {
                     color: 'rgba(224,224,224,0.28)',
                     fontSize: '0.875rem',
                     fontFamily: FONT,
-                    letterSpacing: 1.5,
+                    letterSpacing: '-0.01em',
                     fontWeight: 600,
                     transition: 'color 0.2s',
                     minWidth: 90,
@@ -737,7 +737,7 @@ function ContactSection() {
                 textDecoration: 'none',
                 fontSize: '0.875rem',
                 fontFamily: FONT,
-                letterSpacing: 2,
+                letterSpacing: '-0.01em',
                 fontWeight: 500,
                 transition: 'color 0.35s ease',
                 '&:hover': { color: '#E0E0E0' },
@@ -807,7 +807,7 @@ function GuestbookSection() {
 
         <Box sx={{ mt: 10 }}>
           <Typography
-            sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.6rem', fontFamily: FONT, letterSpacing: 4, fontWeight: 600, mb: 3 }}
+            sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.6rem', fontFamily: FONT, letterSpacing: '-0.01em', fontWeight: 600, mb: 3 }}
           >
             FEED
           </Typography>
