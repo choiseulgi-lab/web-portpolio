@@ -1,35 +1,35 @@
 :root {
   /* Primary Colors */
-  --color-primary:            #C4E038;
-  --color-primary-light:      #D6F04A;
-  --color-primary-dark:       #9DB82C;
+  --color-primary:            #21F1A8;
+  --color-primary-light:      #4FF5BC;
+  --color-primary-dark:       #15C989;
 
   /* Secondary Colors */
   --color-secondary:          #0E0E0E;
   --color-secondary-light:    #1E1E1E;
   --color-secondary-dark:     #000000;
-  --color-accent:             #6BBF3C;
-  --color-accent-light:       #8FD458;
+  --color-accent:             #21F1A8;
+  --color-accent-light:       #4FF5BC;
 
   /* Background Colors */
-  --color-bg-primary:         #141414;
+  --color-bg-primary:         #171717;
   --color-bg-secondary:       #FFFFFF;
   --color-bg-tertiary:        #F5F5F5;
-  --color-bg-brand:           #BCD830;
+  --color-bg-brand:           #21F1A8;
 
   /* Text Colors */
   --color-text-primary:       #FFFFFF;
   --color-text-secondary:     #1A1A1A;
   --color-text-muted:         #888888;
   --color-text-disabled:      #555555;
-  --color-text-accent:        #C4E038;
+  --color-text-accent:        #21F1A8;
   --color-text-inverse:       #0E0E0E;
 
   /* Interactive Colors */
-  --color-button-primary:     #C4E038;
-  --color-button-hover:       #D6F04A;
-  --color-link:               #C4E038;
-  --color-link-hover:         #D6F04A;
+  --color-button-primary:     #21F1A8;
+  --color-button-hover:       #4FF5BC;
+  --color-link:               #21F1A8;
+  --color-link-hover:         #4FF5BC;
 
   /* Border Colors */
   --color-border-dark:        #2A2A2A;
@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  background-color: #141414;
+  background-color: #171717;
   color: var(--color-text-primary);
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;

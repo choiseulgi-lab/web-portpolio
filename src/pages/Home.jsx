@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useInView } from '../hooks/useInView'
 
-const LIME = '#D4F04A'
+const LIME = '#21F1A8'
 const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
 const OPEN_Q = String.fromCharCode(0x201C)
 const CLOSE_Q = String.fromCharCode(0x201D)
@@ -73,7 +73,7 @@ function HeroSection() {
       sx={{
         position: 'relative',
         height: '100vh',
-        backgroundColor: '#141414',
+        backgroundColor: '#171717',
         overflow: 'hidden',
         pt: '64px',
         '@keyframes marqFwd': {
@@ -113,7 +113,7 @@ function HeroSection() {
                 fontFamily: FONT,
                 fontSize: { xs: '120px', md: '250px' },
                 fontWeight: 600,
-                color: '#1A1A1A',
+                color: '#1E1E1E',
                 letterSpacing: '-0.01em',
                 lineHeight: 1.6,
                 display: 'inline-block',
@@ -228,7 +228,7 @@ function HowIDesignSection() {
   return (
     <Box
       sx={{
-        backgroundColor: '#141414',
+        backgroundColor: '#171717',
         py: '100px',
       }}
     >
@@ -285,10 +285,10 @@ const inputSx = {
     fontFamily: FONT,
     '&:before': { borderBottomColor: 'rgba(224,224,224,0.18)' },
     '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'rgba(224,224,224,0.45)' },
-    '&:after': { borderBottomColor: '#C4E038' },
+    '&:after': { borderBottomColor: '#21F1A8' },
   },
   '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: '-0.01em', fontFamily: FONT },
-  '& .MuiInputLabel-root.Mui-focused': { color: '#C4E038' },
+  '& .MuiInputLabel-root.Mui-focused': { color: '#21F1A8' },
 }
 
 const EMOJIS = ['😊', '🔥', '✨', '👍', '💡']
@@ -302,7 +302,7 @@ const INFO_ROWS = [
           component="a"
           href="mailto:choiseulgi91@naver.com"
           className="info-value"
-          sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
+          sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#21F1A8' } }}
         >
           choiseulgi91@naver.com
         </Typography>
@@ -310,7 +310,7 @@ const INFO_ROWS = [
           <IconButton
             size="small"
             onClick={onCopy}
-            sx={{ color: copied ? '#C4E038' : 'rgba(224,224,224,0.22)', p: 0.5, transition: 'color 0.2s', '&:hover': { color: '#C4E038', backgroundColor: 'transparent' } }}
+            sx={{ color: copied ? '#21F1A8' : 'rgba(224,224,224,0.22)', p: 0.5, transition: 'color 0.2s', '&:hover': { color: '#21F1A8', backgroundColor: 'transparent' } }}
           >
             <ContentCopyIcon sx={{ fontSize: 16 }} />
           </IconButton>
@@ -333,7 +333,7 @@ const INFO_ROWS = [
         component="a"
         href="#"
         className="info-value"
-        sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
+        sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#21F1A8' } }}
       >
         Download PDF
       </Typography>
@@ -417,7 +417,7 @@ function GuestbookForm({ onSubmitSuccess }) {
               checked={form.is_email_public}
               onChange={handleChange}
               size="small"
-              sx={{ color: 'rgba(224,224,224,0.25)', '&.Mui-checked': { color: '#C4E038' }, p: 0.5 }}
+              sx={{ color: 'rgba(224,224,224,0.25)', '&.Mui-checked': { color: '#21F1A8' }, p: 0.5 }}
             />
           }
           label={
@@ -467,8 +467,8 @@ function GuestbookForm({ onSubmitSuccess }) {
                   ? '1.5px solid #C4E038'
                   : '1px solid rgba(224,224,224,0.12)',
                 transition: 'border-color 0.2s, background-color 0.2s',
-                backgroundColor: form.emoji === e ? 'rgba(196,224,56,0.06)' : 'transparent',
-                '&:hover': { borderColor: 'rgba(196,224,56,0.45)' },
+                backgroundColor: form.emoji === e ? 'rgba(33,241,168,0.06)' : 'transparent',
+                '&:hover': { borderColor: 'rgba(33,241,168,0.45)' },
               }}
             >
               {e}
@@ -496,14 +496,14 @@ function GuestbookForm({ onSubmitSuccess }) {
         size="large"
         disabled={submitting}
         sx={{
-          backgroundColor: '#C4E038',
+          backgroundColor: '#21F1A8',
           color: '#0E0E0E',
           fontWeight: 700,
           fontFamily: FONT,
           px: 4,
-          '&:hover': { backgroundColor: '#d4f04a' },
+          '&:hover': { backgroundColor: '#4FF5BC' },
           '&.Mui-disabled': {
-            backgroundColor: 'rgba(196,224,56,0.3)',
+            backgroundColor: 'rgba(33,241,168,0.3)',
             color: 'rgba(14,14,14,0.4)',
           },
         }}
@@ -569,7 +569,7 @@ function GuestbookFeed({ refreshTrigger }) {
                   <Typography
                     component="a"
                     href={`mailto:${entry.email}`}
-                    sx={{ color: 'rgba(196,224,56,0.5)', fontSize: '0.875rem', fontFamily: FONT, textDecoration: 'none', '&:hover': { color: '#C4E038' }, transition: 'color 0.2s' }}
+                    sx={{ color: 'rgba(33,241,168,0.5)', fontSize: '0.875rem', fontFamily: FONT, textDecoration: 'none', '&:hover': { color: '#21F1A8' }, transition: 'color 0.2s' }}
                   >
                     {entry.email}
                   </Typography>
@@ -586,8 +586,8 @@ function GuestbookFeed({ refreshTrigger }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   px: 1, py: 0.25,
-                  border: '1px solid rgba(196,224,56,0.25)',
-                  color: 'rgba(196,224,56,0.6)',
+                  border: '1px solid rgba(33,241,168,0.25)',
+                  color: 'rgba(33,241,168,0.6)',
                   fontSize: '0.875rem',
                   fontFamily: FONT,
                   letterSpacing: '-0.01em',
@@ -623,7 +623,7 @@ function ContactSection() {
     <Box
       id="contact"
       sx={{
-        backgroundColor: '#141414',
+        backgroundColor: '#171717',
         py: '100px',
       }}
     >
@@ -639,7 +639,7 @@ function ContactSection() {
         >
           <Typography
             sx={{
-              color: '#C4E038',
+              color: '#21F1A8',
               fontSize: '1rem',
               fontWeight: 600,
               lineHeight: 1.6,
@@ -694,8 +694,8 @@ function ContactSection() {
                   py: 2.5,
                   px: 0.5,
                   cursor: 'default',
-                  '&:hover .info-label': { color: '#C4E038' },
-                  '&:hover .info-value': { color: '#C4E038' },
+                  '&:hover .info-label': { color: '#21F1A8' },
+                  '&:hover .info-value': { color: '#21F1A8' },
                 }}
               >
                 <Typography
@@ -759,7 +759,7 @@ function GuestbookSection() {
   return (
     <Box
       sx={{
-        backgroundColor: '#141414',
+        backgroundColor: '#171717',
         py: '100px',
       }}
     >
@@ -767,7 +767,7 @@ function GuestbookSection() {
         <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Typography
           sx={{
-            color: '#C4E038',
+            color: '#21F1A8',
             fontSize: '1rem',
             fontWeight: 600,
             lineHeight: 1.6,

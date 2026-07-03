@@ -4,9 +4,9 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#C4E038',
-      light: '#D6F04A',
-      dark: '#9DB82C',
+      main: '#21F1A8',
+      light: '#4FF5BC',
+      dark: '#15C989',
       contrastText: '#0E0E0E',
     },
     secondary: {
@@ -16,7 +16,7 @@ const theme = createTheme({
       contrastText: '#FFFFFF',
     },
     background: {
-      default: '#141414',
+      default: '#171717',
       paper: '#1E1E1E',
     },
     text: {
@@ -40,18 +40,18 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          backgroundColor: '#C4E038',
+          backgroundColor: '#21F1A8',
           color: '#0E0E0E',
           fontWeight: 700,
-          '&:hover': { backgroundColor: '#D6F04A' },
+          '&:hover': { backgroundColor: '#4FF5BC' },
         },
         outlinedPrimary: {
-          borderColor: '#C4E038',
-          color: '#C4E038',
+          borderColor: '#21F1A8',
+          color: '#21F1A8',
           '&:hover': {
-            borderColor: '#D6F04A',
-            color: '#D6F04A',
-            backgroundColor: 'rgba(196, 224, 56, 0.08)',
+            borderColor: '#4FF5BC',
+            color: '#4FF5BC',
+            backgroundColor: 'rgba(33, 241, 168, 0.08)',
           },
         },
       },
