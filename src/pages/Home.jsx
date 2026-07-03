@@ -653,7 +653,7 @@ function ContactSection() {
               letterSpacing: '-0.01em',
               lineHeight: 1.6,
               mt: '-8px',
-              mb: 2,
+              mb: 0.5,
               textAlign: 'center',
               whiteSpace: 'nowrap',
             }}
@@ -768,7 +768,7 @@ function GuestbookSection() {
             letterSpacing: '-0.01em',
             lineHeight: 1.6,
             mt: '-8px',
-            mb: 2,
+            mb: 0.5,
             textAlign: 'center',
             whiteSpace: 'nowrap',
           }}
