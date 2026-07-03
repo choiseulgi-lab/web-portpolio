@@ -191,7 +191,7 @@ function HeroSection() {
           position: 'relative',
           zIndex: 2,
           overflow: 'hidden',
-          mt: { xs: '48px', sm: '64px', md: '80px' },
+          mt: { xs: '48px', sm: '64px', md: '200px' },
           opacity: typingDone ? 1 : 0,
           transition: 'opacity 0.8s ease 0.9s',
         }}
