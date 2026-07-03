@@ -16,9 +16,8 @@ const CLOSE_Q = String.fromCharCode(0x201D)
 const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi        "
 
 /* ── CircleButton ───────────────────────────────────────────── */
-function CircleButton({ size, bgColor, label, to }) {
+function CircleButton({ size, label, to, outline }) {
   const navigate = useNavigate()
-  const isLime = bgColor === LIME
 
   return (
     <Box
@@ -27,32 +26,32 @@ function CircleButton({ size, bgColor, label, to }) {
         width: size,
         height: size,
         borderRadius: '50%',
-        backgroundColor: bgColor,
+        flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        flexShrink: 0,
-        boxShadow: isLime
-          ? 'inset -7px -9px 18px rgba(0,0,0,0.45), inset 6px 7px 16px rgba(255,255,220,0.38), 0 14px 44px rgba(212,240,74,0.32)'
-          : 'inset -7px -9px 18px rgba(0,0,0,0.22), inset 6px 7px 16px rgba(255,255,255,0.55), 0 14px 44px rgba(255,255,255,0.12)',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        '&:hover': {
-          transform: 'scale(1.07) translateY(-6px)',
-          boxShadow: isLime
-            ? 'inset -7px -9px 18px rgba(0,0,0,0.45), inset 6px 7px 16px rgba(255,255,220,0.38), 0 28px 68px rgba(212,240,74,0.48)'
-            : 'inset -7px -9px 18px rgba(0,0,0,0.22), inset 6px 7px 16px rgba(255,255,255,0.55), 0 28px 68px rgba(255,255,255,0.24)',
-        },
+        transition: 'transform 0.3s ease',
+        '&:hover': { transform: 'scale(1.05) translateY(-8px)' },
+        ...(outline
+          ? {
+              backgroundColor: 'transparent',
+              border: '1.5px solid rgba(255,255,255,0.5)',
+            }
+          : {
+              backgroundColor: '#ffffff',
+              boxShadow: 'inset -6px -8px 16px rgba(0,0,0,0.2), inset 5px 6px 14px rgba(255,255,255,0.5)',
+            }),
       }}
     >
       <Typography
         sx={{
           fontFamily: FONT,
-          color: '#0a0a0a',
-          fontWeight: 700,
-          fontSize: size > 170 ? '1rem' : '0.875rem',
+          color: outline ? '#ffffff' : '#0a0a0a',
+          fontWeight: 600,
+          fontSize: size > 340 ? '1rem' : '0.875rem',
           textAlign: 'center',
-          px: 2,
+          px: 3,
           lineHeight: 1.4,
           userSelect: 'none',
           letterSpacing: '-0.01em',
@@ -88,8 +87,8 @@ function HeroSection() {
     >
       {/* BG 마퀴 텍스트 2줄 */}
       {[
-        { top: '10%', anim: 'marqFwd 90s linear infinite' },
-        { top: '52%', anim: 'marqBwd 120s linear infinite' },
+        { top: '5%', anim: 'marqFwd 90s linear infinite' },
+        { top: '54%', anim: 'marqBwd 120s linear infinite' },
       ].map(({ top, anim }) => (
         <Box
           key={top}
@@ -111,11 +110,11 @@ function HeroSection() {
               component="span"
               sx={{
                 fontFamily: FONT,
-                fontSize: { xs: '4.5rem', md: '7.5rem' },
+                fontSize: { xs: '120px', md: '250px' },
                 fontWeight: 800,
                 color: 'rgba(255,255,255,0.038)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
+                letterSpacing: '-0.01em',
+                lineHeight: 1.6,
                 display: 'inline-block',
               }}
             >
@@ -208,9 +207,9 @@ function HeroSection() {
           px: { xs: '20px', md: '80px' },
         }}
       >
-        <CircleButton size={300} bgColor={LIME} label="About Me" to="/about" />
-        <CircleButton size={380} bgColor="#ffffff" label="Web Design" to="/projects" />
-        <CircleButton size={300} bgColor={LIME} label="Editorial Design" to="/projects" />
+        <CircleButton size={300} outline label="About Me" to="/about" />
+        <CircleButton size={380} label="Web Design" to="/projects" />
+        <CircleButton size={300} outline label="Editorial Design" to="/projects" />
       </Box>
     </Box>
   )
