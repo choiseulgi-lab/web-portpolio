@@ -232,7 +232,7 @@ function HowIDesignSection() {
       sx={{
         backgroundColor: '#171717',
         pt: '250px',
-        pb: '120px',
+        pb: '150px',
         position: 'relative',
         zIndex: 5,
       }}
