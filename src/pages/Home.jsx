@@ -242,11 +242,11 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
-              fontWeight: 700,
+              fontSize: { xs: '2.8rem', md: '4.6875rem' },
+              fontWeight: 600,
               color: '#ffffff',
-              letterSpacing: '-0.03em',
-              lineHeight: 1.2,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.34,
               mb: 6,
             }}
           >
@@ -255,9 +255,10 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '0.875rem', md: '0.9375rem' },
+              fontSize: { xs: '1.1rem', md: '1.5rem' },
+              fontWeight: 500,
               color: 'rgba(255,255,255,0.45)',
-              lineHeight: 2,
+              lineHeight: 1.5,
               wordBreak: 'keep-all',
             }}
           >
@@ -641,12 +642,12 @@ function ContactSection() {
           </Typography>
           <Typography
             sx={{
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
-              fontWeight: 700,
+              fontSize: { xs: '2.8rem', md: '4.6875rem' },
+              fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
               letterSpacing: '-0.02em',
-              lineHeight: 1,
+              lineHeight: 1.34,
               mb: 8,
               textAlign: 'center',
             }}
@@ -759,11 +760,12 @@ function GuestbookSection() {
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: '2rem', md: '2.5rem' },
-            fontWeight: 700,
+            fontSize: { xs: '2.8rem', md: '4.6875rem' },
+            fontWeight: 600,
             fontFamily: FONT,
             color: '#E0E0E0',
             letterSpacing: '-0.02em',
+            lineHeight: 1.34,
             mb: 2,
             textAlign: 'center',
           }}
