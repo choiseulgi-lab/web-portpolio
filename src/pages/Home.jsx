@@ -183,7 +183,7 @@ function HeroSection() {
         <Typography
           sx={{
             fontFamily: FONT,
-            fontSize: { xs: '1rem', md: '1.5rem' },
+            fontSize: '1.125rem',
             color: 'rgba(255,255,255,0.28)',
             letterSpacing: '0.08em',
             fontWeight: 400,
