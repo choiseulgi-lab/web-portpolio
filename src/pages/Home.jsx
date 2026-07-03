@@ -502,11 +502,11 @@ function GuestbookForm({ onSubmitSuccess }) {
         disabled={submitting}
         sx={{
           backgroundColor: 'transparent',
-          color: '#21F1A8',
+          color: '#D2D2D2',
           fontWeight: 700,
           fontFamily: FONT,
           px: 4,
-          border: '1.5px solid #21F1A8',
+          border: '1.5px solid #919191',
           '&:hover': { backgroundColor: '#21F1A8', color: '#0E0E0E', borderColor: '#21F1A8' },
           '&.Mui-disabled': {
             backgroundColor: 'transparent',
