@@ -27,7 +27,7 @@ export default function Navbar() {
           to="/"
           sx={{
             flexGrow: 1,
-            color: 'var(--color-primary)',
+            color: '#FBFBFB',
             textDecoration: 'none',
             fontWeight: 500,
             fontSize: '1.25rem',
