@@ -71,6 +71,7 @@ function HeroSection() {
 
   const [typed, setTyped] = useState('')
   const [typingDone, setTypingDone] = useState(false)
+  const [clipBottom, setClipBottom] = useState(67)
 
   useEffect(() => {
     let intervalId = null
@@ -91,13 +92,24 @@ function HeroSection() {
     }
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const vh = window.innerHeight
+      // 히어로 절반 스크롤하면 원 전체 노출
+      const ratio = Math.min(scrollY / (vh * 0.5), 1)
+      setClipBottom(Math.max(67 - ratio * 67, 0))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <Box
       sx={{
         position: 'relative',
         height: '100vh',
         backgroundColor: '#171717',
-        overflow: 'hidden',
         pt: '64px',
         '@keyframes marqFwd': {
           '0%': { transform: 'translateX(0)' },
@@ -113,44 +125,44 @@ function HeroSection() {
         },
       }}
     >
-      {/* BG 마퀴 텍스트 2줄 */}
-      {[
-        { top: '5%', anim: 'marqFwd 130s linear infinite' },
-        { top: '54%', anim: 'marqBwd 160s linear infinite' },
-      ].map(({ top, anim }) => (
-        <Box
-          key={top}
-          sx={{
-            position: 'absolute',
-            top,
-            left: 0,
-            whiteSpace: 'nowrap',
-            display: 'flex',
-            animation: anim,
-            pointerEvents: 'none',
-            zIndex: 0,
-            userSelect: 'none',
-          }}
-        >
-          {[0, 1].map(i => (
-            <Box
-              key={i}
-              component="span"
-              sx={{
-                fontFamily: FONT,
-                fontSize: { xs: '120px', md: '250px' },
-                fontWeight: 600,
-                color: '#1E1E1E',
-                letterSpacing: '-0.01em',
-                lineHeight: 1.6,
-                display: 'inline-block',
-              }}
-            >
-              {marqueeLine}
-            </Box>
-          ))}
-        </Box>
-      ))}
+      {/* BG 마퀴 — 별도 overflow:hidden 컨테이너 */}
+      <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, pointerEvents: 'none' }}>
+        {[
+          { top: '5%', anim: 'marqFwd 130s linear infinite' },
+          { top: '54%', anim: 'marqBwd 160s linear infinite' },
+        ].map(({ top, anim }) => (
+          <Box
+            key={top}
+            sx={{
+              position: 'absolute',
+              top,
+              left: 0,
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              animation: anim,
+              userSelect: 'none',
+            }}
+          >
+            {[0, 1].map(i => (
+              <Box
+                key={i}
+                component="span"
+                sx={{
+                  fontFamily: FONT,
+                  fontSize: { xs: '120px', md: '250px' },
+                  fontWeight: 600,
+                  color: '#1E1E1E',
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.6,
+                  display: 'inline-block',
+                }}
+              >
+                {marqueeLine}
+              </Box>
+            ))}
+          </Box>
+        ))}
+      </Box>
 
       {/* 텍스트 콘텐츠 */}
       <Box
@@ -233,7 +245,7 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 원 3개 — 아래서 위로 등장 */}
+      {/* 원 3개 — 입장 애니메이션 + 스크롤 clip 언베일 */}
       <Box
         sx={{
           position: 'absolute',
@@ -247,6 +259,7 @@ function HeroSection() {
           opacity: typingDone ? 1 : 0,
           transform: typingDone ? 'translateY(0)' : 'translateY(80px)',
           transition: 'opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s',
+          clipPath: `inset(0 0 ${clipBottom}% 0)`,
         }}
       >
         <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
