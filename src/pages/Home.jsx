@@ -229,7 +229,8 @@ function HowIDesignSection() {
     <Box
       sx={{
         backgroundColor: '#171717',
-        py: '100px',
+        pt: '200px',
+        pb: '100px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
