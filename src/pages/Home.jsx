@@ -229,7 +229,7 @@ function HowIDesignSection() {
     <Box
       sx={{
         backgroundColor: '#141414',
-        py: '200px',
+        py: '100px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -624,7 +624,7 @@ function ContactSection() {
       id="contact"
       sx={{
         backgroundColor: '#141414',
-        py: '200px',
+        py: '100px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -760,7 +760,7 @@ function GuestbookSection() {
     <Box
       sx={{
         backgroundColor: '#141414',
-        py: '200px',
+        py: '100px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
