@@ -67,6 +67,29 @@ function CircleButton({ size, label, to, outline }) {
 /* ── 1. Hero 섹션 ───────────────────────────────────────────── */
 function HeroSection() {
   const marqueeLine = MARQUEE_BASE.repeat(8)
+  const fullHeadline = `${OPEN_Q}왜 여기에 있어야 할까${CLOSE_Q}`
+
+  const [typed, setTyped] = useState('')
+  const [typingDone, setTypingDone] = useState(false)
+
+  useEffect(() => {
+    let intervalId = null
+    const timeoutId = setTimeout(() => {
+      let i = 0
+      intervalId = setInterval(() => {
+        i++
+        setTyped(fullHeadline.slice(0, i))
+        if (i >= fullHeadline.length) {
+          clearInterval(intervalId)
+          setTypingDone(true)
+        }
+      }, 80)
+    }, 400)
+    return () => {
+      clearTimeout(timeoutId)
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [])
 
   return (
     <Box
@@ -83,6 +106,10 @@ function HeroSection() {
         '@keyframes marqBwd': {
           '0%': { transform: 'translateX(-50%)' },
           '100%': { transform: 'translateX(0)' },
+        },
+        '@keyframes blink': {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0 },
         },
       }}
     >
@@ -135,22 +162,26 @@ function HeroSection() {
           px: { xs: '20px', md: '80px' },
         }}
       >
-        {/* 헤드라인 */}
-        <Typography
-          sx={{
-            fontFamily: FONT,
-            fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
-            fontWeight: 600,
-            color: '#ffffff',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.1,
-            mb: { xs: 4, md: 7 },
-          }}
-        >
-          {OPEN_Q}왜 여기에 있어야 할까{CLOSE_Q}
-        </Typography>
+        {/* 헤드라인 — 타이핑 효과 */}
+        <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
+          <Typography
+            sx={{
+              fontFamily: FONT,
+              fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
+              fontWeight: 600,
+              color: '#ffffff',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.1,
+            }}
+          >
+            {typed}
+            {!typingDone && (
+              <Box component="span" sx={{ animation: 'blink 0.7s step-end infinite', ml: '2px' }}>|</Box>
+            )}
+          </Typography>
+        </Box>
 
-        {/* 서브 텍스트 — 2줄 */}
+        {/* 서브 텍스트 — 2줄 순차 fade-in */}
         <Box sx={{ mb: { xs: 3, md: 4 } }}>
           <Typography
             sx={{
@@ -159,6 +190,9 @@ function HeroSection() {
               fontWeight: 500,
               lineHeight: 1.35,
               letterSpacing: '-0.01em',
+              opacity: typingDone ? 1 : 0,
+              transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s',
             }}
           >
             <Box component="span" sx={{ color: LIME }}>이유</Box>
@@ -171,6 +205,9 @@ function HeroSection() {
               fontWeight: 500,
               lineHeight: 1.35,
               letterSpacing: '-0.01em',
+              opacity: typingDone ? 1 : 0,
+              transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s',
             }}
           >
             <Box component="span" sx={{ color: '#ffffff' }}>디자이너 </Box>
@@ -187,13 +224,16 @@ function HeroSection() {
             color: 'rgba(255,255,255,0.28)',
             letterSpacing: '-0.01em',
             fontWeight: 400,
+            opacity: typingDone ? 1 : 0,
+            transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s',
           }}
         >
           Web & Editorial Designer
         </Typography>
       </Box>
 
-      {/* 원 3개 — 겹치는 디자인, 하단 클립 */}
+      {/* 원 3개 — 아래서 위로 등장 */}
       <Box
         sx={{
           position: 'absolute',
@@ -204,6 +244,9 @@ function HeroSection() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
+          opacity: typingDone ? 1 : 0,
+          transform: typingDone ? 'translateY(0)' : 'translateY(80px)',
+          transition: 'opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s',
         }}
       >
         <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
