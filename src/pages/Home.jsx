@@ -630,6 +630,7 @@ function ContactSection() {
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
+        <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Box
           ref={titleRef}
           sx={{
@@ -639,8 +640,17 @@ function ContactSection() {
           }}
         >
           <Typography
-            variant="overline"
-            sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center', fontFamily: FONT }}
+            sx={{
+              color: '#C4E038',
+              fontSize: '1rem',
+              fontWeight: 600,
+              lineHeight: 1.6,
+              letterSpacing: '-0.01em',
+              mb: 0,
+              display: 'block',
+              textAlign: 'center',
+              fontFamily: FONT,
+            }}
           >
             Contact
           </Typography>
@@ -650,8 +660,8 @@ function ContactSection() {
               fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.34,
+              letterSpacing: '-0.01em',
+              lineHeight: 1.6,
               mb: 8,
               textAlign: 'center',
             }}
@@ -738,6 +748,7 @@ function ContactSection() {
             </Typography>
           ))}
         </Box>
+        </Box>
 
       </Container>
     </Box>
@@ -756,9 +767,19 @@ function GuestbookSection() {
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
+        <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Typography
-          variant="overline"
-          sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center', fontFamily: FONT }}
+          sx={{
+            color: '#C4E038',
+            fontSize: '1rem',
+            fontWeight: 600,
+            lineHeight: 1.6,
+            letterSpacing: '-0.01em',
+            mb: 0,
+            display: 'block',
+            textAlign: 'center',
+            fontFamily: FONT,
+          }}
         >
           Guestbook
         </Typography>
@@ -768,8 +789,8 @@ function GuestbookSection() {
             fontWeight: 600,
             fontFamily: FONT,
             color: '#E0E0E0',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.34,
+            letterSpacing: '-0.01em',
+            lineHeight: 1.6,
             mb: 2,
             textAlign: 'center',
           }}
@@ -798,6 +819,7 @@ function GuestbookSection() {
         >
           {'© 2026 Choi Seulgi. All rights reserved.'}
         </Typography>
+        </Box>
       </Container>
     </Box>
   )
