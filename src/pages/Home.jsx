@@ -48,7 +48,7 @@ function CircleButton({ size, label, to, outline }) {
       <Typography
         sx={{
           fontFamily: FONT,
-          color: outline ? '#ffffff' : '#0a0a0a',
+          color: outline ? '#E8E8E8' : '#242424',
           fontWeight: 600,
           fontSize: size > 340 ? '1rem' : '0.875rem',
           textAlign: 'center',
