@@ -71,7 +71,7 @@ function HeroSection() {
 
   const [typed, setTyped] = useState('')
   const [typingDone, setTypingDone] = useState(false)
-  const [clipBottom, setClipBottom] = useState(67)
+  const [circleShift, setCircleShift] = useState(0)
 
   useEffect(() => {
     let intervalId = null
@@ -84,7 +84,7 @@ function HeroSection() {
           clearInterval(intervalId)
           setTypingDone(true)
         }
-      }, 150)
+      }, 100)
     }, 400)
     return () => {
       clearTimeout(timeoutId)
@@ -94,11 +94,8 @@ function HeroSection() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      const vh = window.innerHeight
-      // 히어로 절반 스크롤하면 원 전체 노출
-      const ratio = Math.min(scrollY / (vh * 0.5), 1)
-      setClipBottom(Math.max(67 - ratio * 67, 0))
+      const ratio = Math.min(window.scrollY / (window.innerHeight * 0.4), 1)
+      setCircleShift(ratio * 278)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -109,6 +106,7 @@ function HeroSection() {
       sx={{
         position: 'relative',
         height: '100vh',
+        overflow: 'hidden',
         backgroundColor: '#171717',
         pt: '64px',
         '@keyframes marqFwd': {
@@ -245,7 +243,7 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 원 3개 — 입장 애니메이션 + 스크롤 clip 언베일 */}
+      {/* 원 3개 — 입장 애니메이션 + 스크롤 translateY 언베일 */}
       <Box
         sx={{
           position: 'absolute',
@@ -253,23 +251,28 @@ function HeroSection() {
           left: 0,
           right: 0,
           zIndex: 2,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
           opacity: typingDone ? 1 : 0,
           transform: typingDone ? 'translateY(0)' : 'translateY(80px)',
           transition: 'opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s',
-          clipPath: `inset(0 0 ${clipBottom}% 0)`,
         }}
       >
-        <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
-          <CircleButton size={417} outline label="About Me" to="/about" />
-        </Box>
-        <Box sx={{ position: 'relative', zIndex: 3, flexShrink: 0 }}>
-          <CircleButton size={417} label="Web Design" to="/projects" />
-        </Box>
-        <Box sx={{ position: 'relative', zIndex: 2, ml: '-80px', flexShrink: 0 }}>
-          <CircleButton size={417} outline label="Editorial Design" to="/projects" />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+            transform: `translateY(-${circleShift}px)`,
+          }}
+        >
+          <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
+            <CircleButton size={417} outline label="About Me" to="/about" />
+          </Box>
+          <Box sx={{ position: 'relative', zIndex: 3, flexShrink: 0 }}>
+            <CircleButton size={417} label="Web Design" to="/projects" />
+          </Box>
+          <Box sx={{ position: 'relative', zIndex: 2, ml: '-80px', flexShrink: 0 }}>
+            <CircleButton size={417} outline label="Editorial Design" to="/projects" />
+          </Box>
         </Box>
       </Box>
     </Box>
