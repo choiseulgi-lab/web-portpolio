@@ -111,7 +111,7 @@ function HeroSection() {
               sx={{
                 fontFamily: FONT,
                 fontSize: { xs: '120px', md: '250px' },
-                fontWeight: 800,
+                fontWeight: 700,
                 color: '#1A1A1A',
                 letterSpacing: '-0.01em',
                 lineHeight: 1.6,
