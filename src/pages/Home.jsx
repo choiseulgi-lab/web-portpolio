@@ -292,7 +292,7 @@ const inputSx = {
     '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'rgba(224,224,224,0.45)' },
     '&:after': { borderBottomColor: '#21F1A8' },
   },
-  '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: '-0.01em', fontFamily: FONT },
+  '& .MuiInputLabel-root': { color: '#919191', fontSize: '0.875rem', letterSpacing: '-0.01em', fontFamily: FONT },
   '& .MuiInputLabel-root.Mui-focused': { color: '#21F1A8' },
 }
 
@@ -455,7 +455,7 @@ function GuestbookForm({ onSubmitSuccess }) {
       />
 
       <Box sx={{ mb: 4 }}>
-        <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, letterSpacing: '-0.01em', color: 'rgba(224,224,224,0.3)', mb: 1.5 }}>
+        <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, letterSpacing: '-0.01em', color: '#919191', mb: 1.5 }}>
           EMOJI *
         </Typography>
         <Box sx={{ display: 'flex', gap: 1.5 }}>
@@ -693,7 +693,7 @@ function ContactSection() {
                 <Typography
                   className="info-label"
                   sx={{
-                    color: 'rgba(224,224,224,0.28)',
+                    color: '#919191',
                     fontSize: '0.875rem',
                     fontFamily: FONT,
                     letterSpacing: '-0.01em',
@@ -724,7 +724,7 @@ function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               sx={{
-                color: 'rgba(224,224,224,0.3)',
+                color: '#919191',
                 textDecoration: 'none',
                 fontSize: '0.875rem',
                 fontFamily: FONT,
