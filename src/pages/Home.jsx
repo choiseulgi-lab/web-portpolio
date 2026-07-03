@@ -196,7 +196,7 @@ function HeroSection() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: '-80px',
+          bottom: '-278px',
           left: 0,
           right: 0,
           zIndex: 2,
