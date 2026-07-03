@@ -231,8 +231,8 @@ function HowIDesignSection() {
     <Box
       sx={{
         backgroundColor: '#171717',
-        pt: '200px',
-        pb: '100px',
+        pt: '250px',
+        pb: '120px',
         position: 'relative',
         zIndex: 5,
       }}
@@ -629,7 +629,7 @@ function ContactSection() {
       id="contact"
       sx={{
         backgroundColor: '#121212',
-        py: '100px',
+        py: '120px',
         position: 'relative',
         zIndex: 5,
       }}
@@ -752,7 +752,7 @@ function GuestbookSection() {
     <Box
       sx={{
         backgroundColor: '#171717',
-        py: '100px',
+        py: '120px',
         position: 'relative',
         zIndex: 5,
       }}
