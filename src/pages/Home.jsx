@@ -192,24 +192,28 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 구체 3개 — 하단에 절반 잘리게 */}
+      {/* 원 3개 — 하단 클립, 양쪽이 30px 위에 위치 */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: '-140px',
+          bottom: '-245px',
           left: 0,
           right: 0,
           zIndex: 2,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
-          gap: { xs: '24px', md: '48px' },
+          gap: { xs: '16px', md: '40px' },
           px: { xs: '20px', md: '80px' },
         }}
       >
-        <CircleButton size={300} outline label="About Me" to="/about" />
-        <CircleButton size={380} label="Web Design" to="/projects" />
-        <CircleButton size={300} outline label="Editorial Design" to="/projects" />
+        <Box sx={{ mb: '30px' }}>
+          <CircleButton size={417} outline label="About Me" to="/about" />
+        </Box>
+        <CircleButton size={417} label="Web Design" to="/projects" />
+        <Box sx={{ mb: '30px' }}>
+          <CircleButton size={417} outline label="Editorial Design" to="/projects" />
+        </Box>
       </Box>
     </Box>
   )
