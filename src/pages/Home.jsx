@@ -83,7 +83,7 @@ function HeroSection() {
           clearInterval(intervalId)
           setTypingDone(true)
         }
-      }, 80)
+      }, 150)
     }, 400)
     return () => {
       clearTimeout(timeoutId)
