@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import {
   Box, Container, Typography, Grid,
   Accordion, AccordionSummary, AccordionDetails,
@@ -10,40 +10,40 @@ import { useInView } from '../hooks/useInView'
 
 const aboutMeData = {
   basicInfo: {
-    name: '理쒖뒳湲?,
+    name: '최슬기',
     role: 'UI/UX Designer',
     work: [
-      { date: '2024. 06 ~ 2025. 12', content: '?ㅼ삤?쒖뒪??(湲고쉷 諛??붿옄??' },
-      { date: '2016. 01 ~ 2021. 10', content: '援?┰?섏궛怨쇳븰???곌뎄?? },
+      { date: '2024. 06 ~ 2025. 12', content: '네오시스템 (기획 및 디자인)' },
+      { date: '2016. 01 ~ 2021. 10', content: '국립수산과학원 연구원' },
     ],
     education: [
-      { date: '2026. 07', content: "SBS?꾩뭅?곕? '?밸뵒?먯씠???ㅻТ???묒꽦怨쇱젙' ?섎즺" },
-      { date: '2023. 12', content: "洹몃┛AI罹좏띁??'?붿????몄쭛?붿옄???몄옱 ?묒꽦怨쇱젙' ?섎즺" },
-      { date: '2016. 02', content: '?꾨궓??숆탳 ?섏궛怨쇳븰怨?議몄뾽' },
+      { date: '2026. 07', content: "SBS아카데미 '웹디자이너 실무자 양성과정' 수료" },
+      { date: '2023. 12', content: "그린AI캠퍼스 '디지털 편집디자인 인재 양성과정' 수료" },
+      { date: '2016. 02', content: '전남대학교 수산과학과 졸업' },
     ],
     certification: [
-      { date: '2024. 07', content: '而댄벂?곌렇?섑뵿?ㅼ슫?⑷린?μ궗' },
-      { date: '2023. 12', content: 'GTQ ?몃뵒?먯씤 1湲? },
-      { date: '2023. 11', content: 'GTQ ?ы넗??1湲? },
-      { date: '2023. 11', content: 'GTQ ?쇰윭?ㅽ듃 1湲? },
-      { date: '2013. 12', content: '?щТ?먮룞?붿궛?낃린?? },
+      { date: '2024. 07', content: '컴퓨터그래픽스운용기능사' },
+      { date: '2023. 12', content: 'GTQ 인디자인 1급' },
+      { date: '2023. 11', content: 'GTQ 포토샵 1급' },
+      { date: '2023. 11', content: 'GTQ 일러스트 1급' },
+      { date: '2013. 12', content: '사무자동화산업기사' },
     ],
   },
   sections: [
     {
       id: 'why-design',
       title: 'Why Design',
-      content: '?ъ슜?먭? ?뺣낫瑜??쎄퀬 ?몄븞?섍쾶 ?댄빐?????덈뒗 ?붾㈃??留뚮뱶??寃껋뿉 ?λ?瑜??먭뺨 UI/UX ?붿옄?몄쓣 ?쒖옉?덉뒿?덈떎. ?쇨렇留덈? ?쒖슜???ㅼ뼇???쒕퉬?ㅻ? 湲고쉷?섍퀬 ?ㅺ퀎?섎ŉ, ?ъ슜?먯쓽 愿?먯뿉?????쎄퀬 吏곴??곸씤 寃쏀뿕??留뚮뱶??諛⑸쾿??袁몄???怨좊??섍퀬 ?덉뒿?덈떎. 蹂닿린 醫뗭? ?붾㈃???섏뼱 臾몄젣瑜??닿껐?섎뒗 ?붿옄?몄쓣 留뚮뱶??寃껋씠 ???紐⑺몴?낅땲??',
+      content: '사용자가 정보를 쉽고 편안하게 이해할 수 있는 화면을 만드는 것에 흥미를 느껴 UI/UX 디자인을 시작했습니다. 피그마를 활용해 다양한 서비스를 기획하고 설계하며, 사용자의 관점에서 더 쉽고 직관적인 경험을 만드는 방법을 꾸준히 고민하고 있습니다. 보기 좋은 화면을 넘어 문제를 해결하는 디자인을 만드는 것이 저의 목표입니다.',
     },
     {
       id: 'how-i-design',
       title: 'How I Design',
-      content: '???紐⑤뱺 ?붿옄?몄뿉??紐낇솗???댁쑀媛 ?덉뼱???쒕떎怨??앷컖?⑸땲?? ?뺣낫???곗꽑?쒖쐞瑜?遺꾨챸?섍쾶 ?꾨떖?섍퀬, ?ъ슜?먭? ?먯뿰?ㅻ읇寃??먮쫫???곕씪媛????덈룄濡??ㅺ퀎?섎뒗 寃껋쓣 以묒슂?섍쾶 ?ш퉩?덈떎. ?묒? 媛꾧꺽怨??뺣젹, ?곗튂 ?곸뿭源뚯???洹쇨굅瑜?媛吏怨?寃곗젙?섎ŉ ?쇨????덈뒗 ?ъ슜??寃쏀뿕??留뚮뱶????吏묒쨷?⑸땲??',
+      content: '저는 모든 디자인에는 명확한 이유가 있어야 한다고 생각합니다. 정보의 우선순위를 분명하게 전달하고, 사용자가 자연스럽게 흐름을 따라갈 수 있도록 설계하는 것을 중요하게 여깁니다. 작은 간격과 정렬, 터치 영역까지도 근거를 가지고 결정하며 일관성 있는 사용자 경험을 만드는 데 집중합니다.',
     },
     {
       id: 'how-i-learn',
       title: 'How I Learn',
-      content: '?덈줈???뱀궗?댄듃? ?깆쓣 ?먯깋?섎뒗 寃껋쓣 醫뗭븘?⑸땲?? 醫뗭? ?쒕퉬?ㅻ? 諛쒓껄?섎㈃ ?⑥닚???ъ슜?섎뒗 ??洹몄튂吏 ?딄퀬 ?붾㈃ 援ъ꽦怨??ъ슜???먮쫫???댄렣蹂대ŉ ?ㅺ퀎 ?섎룄瑜?遺꾩꽍?⑸땲?? ?몄긽 源딆? ?붿옄?몄? 吏곸젒 ?쇨렇留덈줈 援ы쁽??蹂대ŉ 援ъ“? ?먮━瑜??댄빐?섍퀬, ?대? ?듯빐 ?ㅻТ 媛먭컖怨??붿옄????웾??袁몄????ㅼ썙媛怨??덉뒿?덈떎.',
+      content: '새로운 웹사이트와 앱을 탐색하는 것을 좋아합니다. 좋은 서비스를 발견하면 단순히 사용하는 데 그치지 않고 화면 구성과 사용자 흐름을 살펴보며 설계 의도를 분석합니다. 인상 깊은 디자인은 직접 피그마로 구현해 보며 구조와 원리를 이해하고, 이를 통해 실무 감각과 디자인 역량을 꾸준히 키워가고 있습니다.',
     },
   ],
 }
@@ -108,7 +108,7 @@ export default function AboutMe() {
     >
       <Container maxWidth="lg" sx={{ px: { xs: 3, md: 5 } }}>
 
-        {/* ?? ?명듃濡?臾멸뎄 ?? */}
+        {/* ── 인트로 문구 ── */}
         <Box sx={{ mb: { xs: 8, md: 10 } }}>
           <Typography
             sx={{
@@ -147,17 +147,17 @@ export default function AboutMe() {
           </Typography>
         </Box>
 
-        {/* ?? 2而щ읆 ?덉씠?꾩썐 ?? */}
+        {/* ── 2컬럼 레이아웃 ── */}
         <Grid ref={gridRef} container spacing={2} sx={{ mb: { xs: 6, md: 8 }, opacity: gridInView ? 1 : 0, transform: gridInView ? 'translateY(0)' : 'translateY(28px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }} alignItems="stretch">
 
-          {/* 醫뚯륫: Profile + Skills (4) */}
+          {/* 좌측: Profile + Skills (4) */}
           <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}>
 
               {/* Profile */}
               <Box sx={{ ...cardSx, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <Typography component="span" sx={labelSx}>PROFILE</Typography>
-                {/* ?ъ쭊 ?곸뿭 ???ㅼ젣 ?ъ쭊?쇰줈 援먯껜 ??img ?쒓렇濡?蹂寃?*/}
+                {/* 사진 영역 — 실제 사진으로 교체 시 img 태그로 변경 */}
                 <Box
                   sx={{
                     width: '65%',
@@ -201,7 +201,7 @@ export default function AboutMe() {
                     wordBreak: 'keep-all',
                   }}
                 >
-                  ???ш린???덉뼱???좉퉴<br />?댁쑀瑜??댁븘 ?ㅺ퀎?섎뒗 ?붿옄?대꼫 理쒖뒳湲곗엯?덈떎
+                  왜 여기에 있어야 할까<br />이유를 담아 설계하는 디자이너 최슬기입니다
                 </Typography>
               </Box>
 
@@ -257,7 +257,7 @@ export default function AboutMe() {
             </Box>
           </Grid>
 
-          {/* ?곗륫: Education + Work + Certification (6) */}
+          {/* 우측: Education + Work + Certification (6) */}
           <Grid item xs={12} md={7} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}>
 
@@ -311,7 +311,7 @@ export default function AboutMe() {
 
         </Grid>
 
-        {/* ?? ?꾩퐫?붿뼵 ?뱀뀡 援щ텇 ?? */}
+        {/* ── 아코디언 섹션 구분 ── */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: { xs: 6, md: 8 }, mt: { xs: 2, md: 4 } }}>
           <Box sx={{ flex: 1, height: '1px', backgroundColor: 'rgba(224,224,224,0.08)' }} />
           <Typography
@@ -328,7 +328,7 @@ export default function AboutMe() {
           <Box sx={{ flex: 1, height: '1px', backgroundColor: 'rgba(224,224,224,0.08)' }} />
         </Box>
 
-        {/* ?? ?꾩퐫?붿뼵 ?뱀뀡 ?? */}
+        {/* ── 아코디언 섹션 ── */}
         <Box ref={accordionRef} sx={{ opacity: accordionInView ? 1 : 0, transform: accordionInView ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.6s ease, transform 0.6s ease' }}>
           {aboutMeData.sections.map((section) => (
             <Accordion
