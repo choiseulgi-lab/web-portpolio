@@ -72,13 +72,9 @@ function HeroSection() {
     <Box
       sx={{
         position: 'relative',
-        minHeight: '100vh',
+        height: '100vh',
         backgroundColor: '#0a0a0a',
         overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         pt: '64px',
         '@keyframes marqFwd': {
           '0%': { transform: 'translateX(0)' },
@@ -92,8 +88,8 @@ function HeroSection() {
     >
       {/* BG 마퀴 텍스트 2줄 */}
       {[
-        { top: '14%', anim: 'marqFwd 90s linear infinite' },
-        { top: '60%', anim: 'marqBwd 120s linear infinite' },
+        { top: '10%', anim: 'marqFwd 90s linear infinite' },
+        { top: '52%', anim: 'marqBwd 120s linear infinite' },
       ].map(({ top, anim }) => (
         <Box
           key={top}
@@ -129,72 +125,92 @@ function HeroSection() {
         </Box>
       ))}
 
-      {/* 중앙 콘텐츠 */}
+      {/* 텍스트 콘텐츠 */}
       <Box
         sx={{
           position: 'relative',
           zIndex: 2,
           textAlign: 'center',
-          width: '100%',
+          pt: { xs: '12%', md: '10%' },
           px: { xs: '20px', md: '80px' },
         }}
       >
         {/* 헤드라인 */}
-        <Box sx={{ mb: { xs: 10, md: 14 } }}>
+        <Typography
+          sx={{
+            fontFamily: FONT,
+            fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
+            fontWeight: 600,
+            color: '#ffffff',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.1,
+            mb: { xs: 4, md: 7 },
+          }}
+        >
+          {OPEN_Q}왜 여기에 있어야 할까{CLOSE_Q}
+        </Typography>
+
+        {/* 서브 텍스트 — 2줄 */}
+        <Box sx={{ mb: { xs: 3, md: 4 } }}>
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
-              fontWeight: 600,
-              color: '#ffffff',
-              letterSpacing: '-0.03em',
-              lineHeight: 1.15,
-              mb: 2,
+              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
+              fontWeight: 500,
+              lineHeight: 1.35,
+              letterSpacing: '-0.02em',
             }}
           >
-            {OPEN_Q}왜 여기에 있어야 할까{CLOSE_Q}
+            <Box component="span" sx={{ color: LIME }}>이유</Box>
+            <Box component="span" sx={{ color: '#ffffff' }}>를 담아 설계하는</Box>
           </Typography>
           <Typography
             sx={{
               fontFamily: FONT,
               fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
               fontWeight: 500,
-              lineHeight: 1.4,
+              lineHeight: 1.35,
               letterSpacing: '-0.02em',
-              mb: 3,
             }}
           >
-            <Box component="span" sx={{ color: LIME }}>이유를 담아 설계하는</Box>
-            {' '}
-            <Box component="span" sx={{ color: '#ffffff' }}>디자이너 최슬기입니다</Box>
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: FONT,
-              fontSize: { xs: '1rem', md: '1.5rem' },
-              color: 'rgba(255,255,255,0.28)',
-              letterSpacing: '0.08em',
-              fontWeight: 400,
-            }}
-          >
-            Web & Editorial Designer
+            <Box component="span" sx={{ color: '#ffffff' }}>디자이너 </Box>
+            <Box component="span" sx={{ color: LIME }}>최슬기</Box>
+            <Box component="span" sx={{ color: '#ffffff' }}>입니다</Box>
           </Typography>
         </Box>
 
-        {/* 구체 3개 */}
-        <Box
+        {/* Web & Editorial Designer */}
+        <Typography
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: { xs: 3, md: 5 },
-            flexWrap: 'wrap',
+            fontFamily: FONT,
+            fontSize: { xs: '1rem', md: '1.5rem' },
+            color: 'rgba(255,255,255,0.28)',
+            letterSpacing: '0.08em',
+            fontWeight: 400,
           }}
         >
-          <CircleButton size={160} bgColor={LIME} label="About Me" to="/about" />
-          <CircleButton size={200} bgColor="#ffffff" label="Web Design" to="/projects" />
-          <CircleButton size={160} bgColor={LIME} label="Editorial Design" to="/projects" />
-        </Box>
+          Web & Editorial Designer
+        </Typography>
+      </Box>
+
+      {/* 구체 3개 — 하단에 절반 잘리게 */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '-140px',
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          gap: { xs: '24px', md: '48px' },
+          px: { xs: '20px', md: '80px' },
+        }}
+      >
+        <CircleButton size={300} bgColor={LIME} label="About Me" to="/about" />
+        <CircleButton size={380} bgColor="#ffffff" label="Web Design" to="/projects" />
+        <CircleButton size={300} bgColor={LIME} label="Editorial Design" to="/projects" />
       </Box>
     </Box>
   )
