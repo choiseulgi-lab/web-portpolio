@@ -13,7 +13,7 @@ const LIME = '#D4F04A'
 const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
 const OPEN_Q = String.fromCharCode(0x201C)
 const CLOSE_Q = String.fromCharCode(0x201D)
-const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi        "
+const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi "
 
 /* ── CircleButton ───────────────────────────────────────────── */
 function CircleButton({ size, label, to, outline }) {
@@ -228,9 +228,7 @@ function HowIDesignSection() {
     <Box
       sx={{
         backgroundColor: '#141414',
-        py: { xs: 14, md: 20 },
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        py: '200px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -625,8 +623,7 @@ function ContactSection() {
       id="contact"
       sx={{
         backgroundColor: '#141414',
-        py: { xs: 10, md: 14 },
-        borderTop: '1px solid rgba(224,224,224,0.06)',
+        py: '200px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -662,7 +659,8 @@ function ContactSection() {
               color: '#E0E0E0',
               letterSpacing: '-0.01em',
               lineHeight: 1.6,
-              mb: 8,
+              mt: '-8px',
+              mb: 0,
               textAlign: 'center',
             }}
           >
@@ -670,12 +668,12 @@ function ContactSection() {
           </Typography>
           <Typography
             sx={{
-              color: 'rgba(224,224,224,0.45)',
+              color: '#E8E8E8',
               fontSize: '0.9375rem',
               fontFamily: FONT,
               textAlign: 'center',
               mb: 8,
-              mt: -6,
+              mt: 0,
               wordBreak: 'keep-all',
               lineHeight: 1.8,
             }}
@@ -762,8 +760,7 @@ function GuestbookSection() {
     <Box
       sx={{
         backgroundColor: '#141414',
-        py: { xs: 10, md: 14 },
-        borderTop: '1px solid rgba(224,224,224,0.06)',
+        py: '200px',
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -791,6 +788,7 @@ function GuestbookSection() {
             color: '#E0E0E0',
             letterSpacing: '-0.01em',
             lineHeight: 1.6,
+            mt: '-8px',
             mb: 2,
             textAlign: 'center',
           }}
