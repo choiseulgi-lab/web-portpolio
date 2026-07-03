@@ -628,7 +628,7 @@ function ContactSection() {
     <Box
       id="contact"
       sx={{
-        backgroundColor: '#171717',
+        backgroundColor: '#121212',
         py: '100px',
         position: 'relative',
         zIndex: 5,
