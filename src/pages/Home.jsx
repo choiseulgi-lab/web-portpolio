@@ -87,8 +87,8 @@ function HeroSection() {
     >
       {/* BG 마퀴 텍스트 2줄 */}
       {[
-        { top: '5%', anim: 'marqFwd 90s linear infinite' },
-        { top: '54%', anim: 'marqBwd 120s linear infinite' },
+        { top: '5%', anim: 'marqFwd 130s linear infinite' },
+        { top: '54%', anim: 'marqBwd 160s linear infinite' },
       ].map(({ top, anim }) => (
         <Box
           key={top}

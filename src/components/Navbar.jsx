@@ -45,7 +45,7 @@ export default function Navbar() {
                 component={Link}
                 to={path}
                 sx={{
-                  color: active ? 'var(--color-primary)' : 'var(--color-text-primary)',
+                  color: active ? 'var(--color-primary)' : '#FBFBFB',
                   borderBottom: active ? '2px solid var(--color-primary)' : '2px solid transparent',
                   borderRadius: 0,
                   px: 2,
