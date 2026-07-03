@@ -287,6 +287,8 @@ function HowIDesignSection() {
         backgroundColor: '#171717',
         pt: '200px',
         pb: '100px',
+        position: 'relative',
+        zIndex: 5,
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -294,8 +296,8 @@ function HowIDesignSection() {
           ref={ref}
           sx={{
             opacity: inView ? 1 : 0,
-            transform: inView ? 'translateY(0)' : 'translateY(24px)',
-            transition: 'opacity 0.7s ease, transform 0.7s ease',
+            transform: inView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.8s ease, transform 0.8s ease',
             textAlign: 'center',
           }}
         >
@@ -682,6 +684,8 @@ function ContactSection() {
       sx={{
         backgroundColor: '#171717',
         py: '100px',
+        position: 'relative',
+        zIndex: 5,
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
@@ -803,6 +807,8 @@ function GuestbookSection() {
       sx={{
         backgroundColor: '#171717',
         py: '100px',
+        position: 'relative',
+        zIndex: 5,
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
