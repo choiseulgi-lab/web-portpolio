@@ -1,496 +1,275 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import {
-  Box, Typography, Button, Container,
-  Grid, CircularProgress,
-  TextField, Stack, Divider, Snackbar, Alert,
-  IconButton, Tooltip, Checkbox, FormControlLabel, Chip,
+  Box, Typography, Container, Button,
+  TextField, Divider, Snackbar, Alert,
+  IconButton, Tooltip, Checkbox, FormControlLabel,
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
-import { skills } from '../data/skills'
-import ProjectCard from '../components/ProjectCard'
 import { useInView } from '../hooks/useInView'
 
-/* ── 1. Hero 섹션 ─────────────────────────────────────────── */
-function HeroSection() {
-  const canvasRef = useRef(null)
+const LIME = '#D4F04A'
+const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
+const OPEN_Q = String.fromCharCode(0x201C)
+const CLOSE_Q = String.fromCharCode(0x201D)
+const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi        "
 
-  const cursorRef = useRef(null)
-  const mouseRef = useRef({ x: -9999, y: -9999, inside: false })
-  const prevTextElRef = useRef(null)
-  const rafRef = useRef(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    const hero = canvas.parentElement
-    const isMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    let dots = []
-    let spacing = 0
-
-    const resize = () => {
-      canvas.width = hero.offsetWidth
-      canvas.height = hero.offsetHeight
-      spacing = canvas.width / 30
-      dots = []
-      for (let x = spacing / 2; x < canvas.width; x += spacing) {
-        for (let y = spacing / 2; y < canvas.height; y += spacing) {
-          dots.push({ x, y })
-        }
-      }
-    }
-
-    const LIME = [212, 255, 63]
-    const RADIUS = 200
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      const { x: mx, y: my, inside } = mouseRef.current
-
-      dots.forEach(({ x, y }) => {
-        let t = 0
-        if (isMouse && inside) {
-          const dist = Math.hypot(x - mx, y - my)
-          if (dist < RADIUS) t = 1 - dist / RADIUS
-        }
-        const opacity = 0.17 + t * 0.6
-        const r = 2.5 + t * 2.5
-        const ri = Math.round(255 * (1 - t) + LIME[0] * t)
-        const gi = Math.round(255 * (1 - t) + LIME[1] * t)
-        const bi = Math.round(255 * (1 - t) + LIME[2] * t)
-        ctx.beginPath()
-        ctx.arc(x, y, r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${ri},${gi},${bi},${opacity})`
-        ctx.fill()
-      })
-
-      rafRef.current = requestAnimationFrame(draw)
-    }
-
-    const onMouseMove = (e) => {
-      const rect = hero.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      mouseRef.current = { x, y, inside: true }
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`
-        cursorRef.current.style.opacity = '1'
-      }
-
-      const el = document.elementFromPoint(e.clientX, e.clientY)
-      const textEl = el?.closest('[data-hero-text]')
-
-      if (textEl) {
-        if (cursorRef.current) {
-          cursorRef.current.style.width = '72px'
-          cursorRef.current.style.height = '72px'
-        }
-        if (prevTextElRef.current !== textEl) {
-          if (prevTextElRef.current) prevTextElRef.current.style.transform = ''
-          textEl.style.transform = 'scale(1.04)'
-          textEl.style.transition = 'transform 0.3s ease'
-          prevTextElRef.current = textEl
-        }
-      } else {
-        if (cursorRef.current) {
-          cursorRef.current.style.width = '32px'
-          cursorRef.current.style.height = '32px'
-        }
-        if (prevTextElRef.current) {
-          prevTextElRef.current.style.transform = ''
-          prevTextElRef.current = null
-        }
-      }
-    }
-
-    const onMouseLeave = () => {
-      mouseRef.current.inside = false
-      if (cursorRef.current) {
-        cursorRef.current.style.opacity = '0'
-        cursorRef.current.style.width = '32px'
-        cursorRef.current.style.height = '32px'
-      }
-      if (prevTextElRef.current) {
-        prevTextElRef.current.style.transform = ''
-        prevTextElRef.current = null
-      }
-    }
-
-    resize()
-    draw()
-
-    if (isMouse) {
-      hero.addEventListener('mousemove', onMouseMove)
-      hero.addEventListener('mouseleave', onMouseLeave)
-    }
-    window.addEventListener('resize', resize)
-
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      hero.removeEventListener('mousemove', onMouseMove)
-      hero.removeEventListener('mouseleave', onMouseLeave)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
-  const OPEN_Q = String.fromCharCode(0x201C)
-  const CLOSE_Q = String.fromCharCode(0x201D)
+/* ── CircleButton ───────────────────────────────────────────── */
+function CircleButton({ size, bgColor, label, to }) {
+  const navigate = useNavigate()
+  const isLime = bgColor === LIME
 
   return (
     <Box
+      onClick={() => navigate(to)}
       sx={{
-        minHeight: 'calc(100vh - 64px)',
-        marginTop: '64px',
+        width: size,
+        height: size,
+        borderRadius: '50%',
+        backgroundColor: bgColor,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#0a0a0a',
-        borderBottom: '1px solid var(--color-border-dark)',
-        position: 'relative',
-        overflow: 'hidden',
-        isolation: 'isolate',
-        '@keyframes fadeInUp': {
-          from: { opacity: 0, transform: 'translateY(28px)' },
-          to: { opacity: 1, transform: 'translateY(0)' },
+        cursor: 'pointer',
+        flexShrink: 0,
+        boxShadow: isLime
+          ? 'inset -7px -9px 18px rgba(0,0,0,0.45), inset 6px 7px 16px rgba(255,255,220,0.38), 0 14px 44px rgba(212,240,74,0.32)'
+          : 'inset -7px -9px 18px rgba(0,0,0,0.22), inset 6px 7px 16px rgba(255,255,255,0.55), 0 14px 44px rgba(255,255,255,0.12)',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.07) translateY(-6px)',
+          boxShadow: isLime
+            ? 'inset -7px -9px 18px rgba(0,0,0,0.45), inset 6px 7px 16px rgba(255,255,220,0.38), 0 28px 68px rgba(212,240,74,0.48)'
+            : 'inset -7px -9px 18px rgba(0,0,0,0.22), inset 6px 7px 16px rgba(255,255,255,0.55), 0 28px 68px rgba(255,255,255,0.24)',
         },
       }}
     >
-      {/* 캔버스 dot 그리드 */}
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}
-      />
-
-
-      {/* 커서 */}
-      <Box
-        ref={cursorRef}
+      <Typography
         sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: 32,
-          height: 32,
-          borderRadius: '50%',
-          backgroundColor: 'rgba(255,255,255,0.9)',
-          mixBlendMode: 'difference',
-          pointerEvents: 'none',
-          zIndex: 10,
-          opacity: 0,
-          transition: 'opacity 0.3s ease, width 0.25s ease, height 0.25s ease',
+          fontFamily: FONT,
+          color: '#0a0a0a',
+          fontWeight: 700,
+          fontSize: size > 170 ? '1rem' : '0.875rem',
+          textAlign: 'center',
+          px: 2,
+          lineHeight: 1.4,
+          userSelect: 'none',
+          letterSpacing: '-0.01em',
         }}
-      />
-
-
-      <Container maxWidth="md" sx={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
-
-
-        {/* 헤드라인 */}
-        <Typography
-          data-hero-text="true"
-          sx={{
-            fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.4,
-            color: 'var(--color-text-primary)',
-            mb: 4,
-            wordBreak: 'keep-all',
-            animation: 'fadeInUp 0.6s ease 0.3s both',
-          }}
-        >
-          <Box
-            component="span"
-            sx={{
-              fontSize: { xs: '4rem', sm: '5rem', md: '6.5rem' },
-              fontFamily: 'Georgia, "Times New Roman", serif',
-              fontWeight: 400,
-              color: 'white',
-              lineHeight: 0,
-              verticalAlign: '-0.15em',
-              mr: '0.08em',
-              display: 'inline-block',
-            }}
-          >{OPEN_Q}</Box>왜 여기에 있어야 할까<Box
-            component="span"
-            sx={{
-              fontSize: { xs: '4rem', sm: '5rem', md: '6.5rem' },
-              fontFamily: 'Georgia, "Times New Roman", serif',
-              fontWeight: 400,
-              color: 'white',
-              lineHeight: 0,
-              verticalAlign: '-0.15em',
-              ml: '0.08em',
-              display: 'inline-block',
-            }}
-          >{CLOSE_Q}</Box><br />
-          이유를 담아 설계하는 디자이너 최슬기입니다
-        </Typography>
-
-        {/* 포인트 라인 */}
-        <Box
-          sx={{
-            width: 48,
-            height: 2,
-            background: 'linear-gradient(90deg, #9DB82C, #C4E038)',
-            mx: 'auto',
-            mb: 4,
-            animation: 'fadeInUp 0.6s ease 0.5s both',
-          }}
-        />
-
-        {/* 스킬 칩 */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 1,
-            justifyContent: 'center',
-            mb: 4,
-            animation: 'fadeInUp 0.6s ease 0.55s both',
-          }}
-        >
-          {skills.map(({ name, tooltip }) => (
-            <Tooltip
-              key={name}
-              title={tooltip || ''}
-              placement="top"
-              arrow
-              disableHoverListener={!tooltip}
-              componentsProps={{
-                tooltip: {
-                  sx: {
-                    backgroundColor: '#2A2A2A',
-                    color: '#C4E038',
-                    fontSize: '0.75rem',
-                    border: '1px solid rgba(196,224,56,0.2)',
-                  },
-                },
-                arrow: { sx: { color: '#2A2A2A' } },
-              }}
-            >
-              <Chip
-                label={name}
-                size="small"
-                sx={{
-                  backgroundColor: 'rgba(224,224,224,0.06)',
-                  color: 'rgba(224,224,224,0.6)',
-                  border: '1px solid rgba(224,224,224,0.15)',
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                  cursor: tooltip ? 'help' : 'default',
-                  transition: 'all 0.2s',
-                  '&:hover': tooltip ? {
-                    backgroundColor: 'rgba(196,224,56,0.1)',
-                    color: '#C4E038',
-                    borderColor: 'rgba(196,224,56,0.4)',
-                  } : {
-                    backgroundColor: 'rgba(224,224,224,0.1)',
-                    borderColor: 'rgba(224,224,224,0.25)',
-                  },
-                }}
-              />
-            </Tooltip>
-          ))}
-        </Box>
-
-        {/* 이름 — 서명처럼 작게 */}
-        <Typography
-          data-hero-text="true"
-          sx={{
-            fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.4rem' },
-            fontWeight: 600,
-            letterSpacing: '0.1em',
-            mb: 6,
-            background: 'linear-gradient(135deg, #E0E0E0 30%, #C4E038 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            animation: 'fadeInUp 0.6s ease 0.6s both',
-          }}
-        >
-          Web & Editorial Designer
-        </Typography>
-
-        {/* 버튼 */}
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-          justifyContent="center"
-          alignItems={{ xs: 'stretch', sm: 'center' }}
-          sx={{ animation: 'fadeInUp 0.6s ease 0.7s both' }}
-        >
-          <Button
-            variant="contained"
-            size="large"
-            component={Link}
-            to="/projects"
-            sx={{
-              backgroundColor: 'var(--color-button-primary)',
-              color: 'var(--color-text-inverse)',
-              fontWeight: 700,
-              px: 4,
-              transition: 'all 0.2s ease',
-              '&:hover': { backgroundColor: 'var(--color-button-hover)', transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(196,224,56,0.25)' },
-            }}
-          >
-            PROJECTS
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            component={Link}
-            to="/about"
-            sx={{
-              borderColor: 'var(--color-primary)',
-              color: 'var(--color-primary)',
-              px: 4,
-              transition: 'all 0.2s ease',
-              '&:hover': { borderColor: 'var(--color-primary-light)', color: 'var(--color-primary-light)', backgroundColor: 'rgba(196,224,56,0.08)', transform: 'translateY(-2px)' },
-            }}
-          >
-            About Me
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            sx={{
-              borderColor: 'var(--color-primary)',
-              color: 'var(--color-primary)',
-              px: 4,
-              transition: 'all 0.2s ease',
-              '&:hover': { borderColor: 'var(--color-primary-light)', color: 'var(--color-primary-light)', backgroundColor: 'rgba(196,224,56,0.08)', transform: 'translateY(-2px)' },
-            }}
-          >
-            CONTACT
-          </Button>
-        </Stack>
-      </Container>
-
-
-</Box>
+      >
+        {label}
+      </Typography>
+    </Box>
   )
 }
 
-/* ── 2. Projects 섹션 ─────────────────────────────────────── */
-function ProjectsSection() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [headerRef, headerInView] = useInView()
-  const [gridRef, gridInView] = useInView()
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const { data } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order')
-        .limit(3)
-      if (data) setProjects(data)
-      setLoading(false)
-    }
-    fetchProjects()
-  }, [])
+/* ── 1. Hero 섹션 ───────────────────────────────────────────── */
+function HeroSection() {
+  const marqueeLine = MARQUEE_BASE.repeat(8)
 
   return (
     <Box
-      id="projects-preview"
       sx={{
-        py: 12,
-        backgroundColor: 'var(--color-secondary-light)',
-        borderBottom: '1px solid var(--color-border-dark)',
+        position: 'relative',
+        minHeight: '100vh',
+        backgroundColor: '#0a0a0a',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        pt: '64px',
+        '@keyframes marqFwd': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        '@keyframes marqBwd': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
       }}
     >
-      <Container maxWidth="lg">
+      {/* BG 마퀴 텍스트 2줄 */}
+      {[
+        { top: '14%', anim: 'marqFwd 26s linear infinite' },
+        { top: '60%', anim: 'marqBwd 32s linear infinite' },
+      ].map(({ top, anim }) => (
         <Box
-          ref={headerRef}
+          key={top}
           sx={{
-            textAlign: 'center',
-            mb: 8,
-            opacity: headerInView ? 1 : 0,
-            transform: headerInView ? 'translateY(0)' : 'translateY(24px)',
-            transition: 'opacity 0.6s ease, transform 0.6s ease',
+            position: 'absolute',
+            top,
+            left: 0,
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            animation: anim,
+            pointerEvents: 'none',
+            zIndex: 0,
+            userSelect: 'none',
           }}
         >
+          {[0, 1].map(i => (
+            <Box
+              key={i}
+              component="span"
+              sx={{
+                fontFamily: FONT,
+                fontSize: { xs: '4.5rem', md: '7.5rem' },
+                fontWeight: 800,
+                color: 'rgba(255,255,255,0.038)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1,
+                display: 'inline-block',
+              }}
+            >
+              {marqueeLine}
+            </Box>
+          ))}
+        </Box>
+      ))}
+
+      {/* 중앙 콘텐츠 */}
+      <Box
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
+          width: '100%',
+          maxWidth: 920,
+          px: { xs: 3, md: 6 },
+        }}
+      >
+        {/* 헤드라인 */}
+        <Box sx={{ mb: { xs: 10, md: 14 } }}>
           <Typography
-            variant="overline"
-            sx={{ color: 'var(--color-primary)', letterSpacing: 0, mb: 2, display: 'block' }}
+            sx={{
+              fontFamily: FONT,
+              fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
+              fontWeight: 600,
+              color: '#ffffff',
+              letterSpacing: '-0.03em',
+              lineHeight: 1.15,
+              mb: 2,
+            }}
           >
-            Projects
+            {OPEN_Q}왜 여기에 있어야 할까{CLOSE_Q}
           </Typography>
-          <Typography variant="h3" sx={{ color: 'var(--color-text-primary)', fontWeight: 700, mb: 2 }}>
-            Explore My Work
+          <Typography
+            sx={{
+              fontFamily: FONT,
+              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
+              fontWeight: 500,
+              lineHeight: 1.4,
+              letterSpacing: '-0.02em',
+              mb: 3,
+            }}
+          >
+            <Box component="span" sx={{ color: LIME }}>이유를 담아 설계하는</Box>
+            {' '}
+            <Box component="span" sx={{ color: '#ffffff' }}>디자이너 최슬기입니다</Box>
           </Typography>
-          <Typography variant="body1" sx={{ color: 'var(--color-text-muted)' }}>
-            사용자 관점에서 문제를 발견하고 해결한 프로젝트를 소개합니다.
+          <Typography
+            sx={{
+              fontFamily: FONT,
+              fontSize: { xs: '1rem', md: '1.5rem' },
+              color: 'rgba(255,255,255,0.28)',
+              letterSpacing: '0.08em',
+              fontWeight: 400,
+            }}
+          >
+            Web & Editorial Designer
           </Typography>
         </Box>
 
-        {loading && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-            <CircularProgress sx={{ color: 'var(--color-primary)' }} />
-          </Box>
-        )}
+        {/* 구체 3개 */}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: { xs: 3, md: 5 },
+            flexWrap: 'wrap',
+          }}
+        >
+          <CircleButton size={160} bgColor={LIME} label="About Me" to="/about" />
+          <CircleButton size={200} bgColor="#ffffff" label="Web Design" to="/projects" />
+          <CircleButton size={160} bgColor={LIME} label="Editorial Design" to="/projects" />
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 
-        {!loading && (
-          <Grid ref={gridRef} container spacing={3}>
-            {projects.map((project, index) => (
-              <Grid
-                item xs={12} sm={6} md={4}
-                key={project.id}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  opacity: gridInView ? 1 : 0,
-                  transform: gridInView ? 'translateY(0)' : 'translateY(28px)',
-                  transition: `opacity 0.6s ease ${index * 0.12}s, transform 0.6s ease ${index * 0.12}s`,
-                }}
-              >
-                <ProjectCard project={project} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+/* ── StepCard ───────────────────────────────────────────────── */
+/* ── 2. 어떻게 디자인하나요? 섹션 ─────────────────────────── */
+function HowIDesignSection() {
+  const [ref, inView] = useInView()
 
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <Button
-            variant="outlined"
-            size="large"
-            component={Link}
-            to="/projects"
+  return (
+    <Box
+      sx={{
+        backgroundColor: '#0f0f0f',
+        py: { xs: 14, md: 20 },
+        borderTop: '1px solid rgba(255,255,255,0.05)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+      }}
+    >
+      <Container maxWidth="sm">
+        <Box
+          ref={ref}
+          sx={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'translateY(0)' : 'translateY(24px)',
+            transition: 'opacity 0.7s ease, transform 0.7s ease',
+            textAlign: 'center',
+          }}
+        >
+          <Typography
             sx={{
-              borderColor: 'var(--color-primary)',
-              color: 'var(--color-primary)',
-              px: 5,
-              '&:hover': {
-                borderColor: 'var(--color-primary-light)',
-                color: 'var(--color-primary-light)',
-                backgroundColor: 'rgba(196,224,56,0.08)',
-              },
+              fontFamily: FONT,
+              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontWeight: 700,
+              color: '#ffffff',
+              letterSpacing: '-0.03em',
+              lineHeight: 1.2,
+              mb: 6,
             }}
           >
-            전체 보기
-          </Button>
+            {'어떻게'}<br />{'디자인하나요?'}
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: FONT,
+              fontSize: { xs: '0.875rem', md: '0.9375rem' },
+              color: 'rgba(255,255,255,0.45)',
+              lineHeight: 2,
+              wordBreak: 'keep-all',
+            }}
+          >
+            {'모든 디자인에 명확한 이유가 있어야 한다고 생각합니다.'}
+            <br />
+            {'정보의 우선순위를 분명히 전달하고 사용자가 자연스럽게 흐름을 따라갈 수 있는 설계를 추구합니다.'}
+            <br />
+            {'작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
+          </Typography>
         </Box>
       </Container>
     </Box>
   )
 }
 
-/* ── 5. Contact 섹션 ──────────────────────────────────────── */
+/* ── 3. Contact 섹션 ────────────────────────────────────────── */
 const inputSx = {
   '& .MuiInput-root': {
     color: '#E0E0E0',
     fontSize: '0.875rem',
+    fontFamily: FONT,
     '&:before': { borderBottomColor: 'rgba(224,224,224,0.18)' },
     '&:hover:not(.Mui-disabled):before': { borderBottomColor: 'rgba(224,224,224,0.45)' },
     '&:after': { borderBottomColor: '#C4E038' },
   },
-  '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: 1 },
+  '& .MuiInputLabel-root': { color: 'rgba(224,224,224,0.3)', fontSize: '0.875rem', letterSpacing: 1, fontFamily: FONT },
   '& .MuiInputLabel-root.Mui-focused': { color: '#C4E038' },
 }
 
@@ -505,7 +284,7 @@ const INFO_ROWS = [
           component="a"
           href="mailto:choiseulgi91@naver.com"
           className="info-value"
-          sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
+          sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
         >
           choiseulgi91@naver.com
         </Typography>
@@ -524,7 +303,7 @@ const INFO_ROWS = [
   {
     label: 'LOCATION',
     renderValue: () => (
-      <Typography className="info-value" sx={{ color: '#E0E0E0', fontSize: '0.875rem', transition: 'color 0.2s' }}>
+      <Typography className="info-value" sx={{ color: '#E0E0E0', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s' }}>
         Ulsan, South Korea
       </Typography>
     ),
@@ -536,7 +315,7 @@ const INFO_ROWS = [
         component="a"
         href="#"
         className="info-value"
-        sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
+        sx={{ color: '#E0E0E0', textDecoration: 'none', fontSize: '0.875rem', fontFamily: FONT, transition: 'color 0.2s', '&:hover': { color: '#C4E038' } }}
       >
         Download PDF
       </Typography>
@@ -624,8 +403,8 @@ function GuestbookForm({ onSubmitSuccess }) {
             />
           }
           label={
-            <Typography sx={{ fontSize: '0.875rem', color: 'rgba(224,224,224,0.4)', whiteSpace: 'nowrap' }}>
-              이메일 공개
+            <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, color: 'rgba(224,224,224,0.4)', whiteSpace: 'nowrap' }}>
+              {'이메일 공개'}
             </Typography>
           }
           sx={{ mb: 0.3, flexShrink: 0 }}
@@ -653,7 +432,7 @@ function GuestbookForm({ onSubmitSuccess }) {
       />
 
       <Box sx={{ mb: 4 }}>
-        <Typography sx={{ fontSize: '0.875rem', letterSpacing: 1, color: 'rgba(224,224,224,0.3)', mb: 1.5 }}>
+        <Typography sx={{ fontSize: '0.875rem', fontFamily: FONT, letterSpacing: 1, color: 'rgba(224,224,224,0.3)', mb: 1.5 }}>
           EMOJI *
         </Typography>
         <Box sx={{ display: 'flex', gap: 1.5 }}>
@@ -699,11 +478,12 @@ function GuestbookForm({ onSubmitSuccess }) {
         size="large"
         disabled={submitting}
         sx={{
-          backgroundColor: 'var(--color-button-primary)',
-          color: 'var(--color-text-inverse)',
+          backgroundColor: '#C4E038',
+          color: '#0E0E0E',
           fontWeight: 700,
+          fontFamily: FONT,
           px: 4,
-          '&:hover': { backgroundColor: 'var(--color-button-hover)' },
+          '&:hover': { backgroundColor: '#d4f04a' },
           '&.Mui-disabled': {
             backgroundColor: 'rgba(196,224,56,0.3)',
             color: 'rgba(14,14,14,0.4)',
@@ -744,8 +524,8 @@ function GuestbookFeed({ refreshTrigger }) {
 
   if (entries.length === 0) {
     return (
-      <Typography sx={{ color: 'rgba(224,224,224,0.18)', fontSize: '0.875rem', mt: 2, py: 4, textAlign: 'center' }}>
-        아직 작성된 방명록이 없어요. 첫 번째 방명록을 남겨주세요!
+      <Typography sx={{ color: 'rgba(224,224,224,0.18)', fontSize: '0.875rem', fontFamily: FONT, mt: 2, py: 4, textAlign: 'center' }}>
+        {'아직 작성된 방명록이 없어요. 첫 번째 방명록을 남겨주세요!'}
       </Typography>
     )
   }
@@ -759,25 +539,25 @@ function GuestbookFeed({ refreshTrigger }) {
             <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 1, mb: 1, flexWrap: 'wrap' }}>
               <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, flexWrap: 'wrap' }}>
                 <Typography component="span" sx={{ fontSize: '0.875rem', lineHeight: 1 }}>{entry.emoji}</Typography>
-                <Typography sx={{ color: '#E0E0E0', fontSize: '0.875rem', fontWeight: 600 }}>
+                <Typography sx={{ color: '#E0E0E0', fontSize: '0.875rem', fontFamily: FONT, fontWeight: 600 }}>
                   {entry.writer_name}
                 </Typography>
                 {entry.company_or_job && (
-                  <Typography sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem' }}>
-                    · {entry.company_or_job}
+                  <Typography sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem', fontFamily: FONT }}>
+                    {'· '}{entry.company_or_job}
                   </Typography>
                 )}
                 {entry.is_email_public && (
                   <Typography
                     component="a"
                     href={`mailto:${entry.email}`}
-                    sx={{ color: 'rgba(196,224,56,0.5)', fontSize: '0.875rem', textDecoration: 'none', '&:hover': { color: '#C4E038' }, transition: 'color 0.2s' }}
+                    sx={{ color: 'rgba(196,224,56,0.5)', fontSize: '0.875rem', fontFamily: FONT, textDecoration: 'none', '&:hover': { color: '#C4E038' }, transition: 'color 0.2s' }}
                   >
                     {entry.email}
                   </Typography>
                 )}
               </Box>
-              <Typography sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.875rem', flexShrink: 0 }}>
+              <Typography sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.875rem', fontFamily: FONT, flexShrink: 0 }}>
                 {new Date(entry.created_at).toLocaleDateString('ko-KR')}
               </Typography>
             </Box>
@@ -791,15 +571,16 @@ function GuestbookFeed({ refreshTrigger }) {
                   border: '1px solid rgba(196,224,56,0.25)',
                   color: 'rgba(196,224,56,0.6)',
                   fontSize: '0.875rem',
+                  fontFamily: FONT,
                   letterSpacing: 0.5,
                   mb: 1.2,
                 }}
               >
-                # {entry.keyword}
+                {'# '}{entry.keyword}
               </Box>
             )}
 
-            <Typography sx={{ color: 'rgba(224,224,224,0.6)', fontSize: '0.875rem', lineHeight: 1.8, wordBreak: 'keep-all' }}>
+            <Typography sx={{ color: 'rgba(224,224,224,0.6)', fontSize: '0.875rem', fontFamily: FONT, lineHeight: 1.8, wordBreak: 'keep-all' }}>
               {entry.message}
             </Typography>
           </Box>
@@ -840,7 +621,7 @@ function ContactSection() {
         >
           <Typography
             variant="overline"
-            sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center' }}
+            sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center', fontFamily: FONT }}
           >
             Contact
           </Typography>
@@ -848,6 +629,7 @@ function ContactSection() {
             sx={{
               fontSize: { xs: '2.5rem', md: '3.5rem' },
               fontWeight: 700,
+              fontFamily: FONT,
               color: '#E0E0E0',
               letterSpacing: '-0.02em',
               lineHeight: 1,
@@ -855,12 +637,13 @@ function ContactSection() {
               textAlign: 'center',
             }}
           >
-            Let's Connect
+            {`Let's Connect`}
           </Typography>
           <Typography
             sx={{
               color: 'rgba(224,224,224,0.45)',
               fontSize: '0.9375rem',
+              fontFamily: FONT,
               textAlign: 'center',
               mb: 8,
               mt: -6,
@@ -868,7 +651,7 @@ function ContactSection() {
               lineHeight: 1.8,
             }}
           >
-            함께 성장할 기회를 찾고 있습니다.
+            {'함께 성장할 기회를 찾고 있습니다.'}
           </Typography>
         </Box>
 
@@ -893,6 +676,7 @@ function ContactSection() {
                   sx={{
                     color: 'rgba(224,224,224,0.28)',
                     fontSize: '0.875rem',
+                    fontFamily: FONT,
                     letterSpacing: 1.5,
                     fontWeight: 600,
                     transition: 'color 0.2s',
@@ -924,6 +708,7 @@ function ContactSection() {
                 color: 'rgba(224,224,224,0.3)',
                 textDecoration: 'none',
                 fontSize: '0.875rem',
+                fontFamily: FONT,
                 letterSpacing: 2,
                 fontWeight: 500,
                 transition: 'color 0.35s ease',
@@ -954,7 +739,7 @@ function GuestbookSection() {
       <Container maxWidth="sm">
         <Typography
           variant="overline"
-          sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center' }}
+          sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center', fontFamily: FONT }}
         >
           Guestbook
         </Typography>
@@ -962,6 +747,7 @@ function GuestbookSection() {
           sx={{
             fontSize: { xs: '2rem', md: '2.5rem' },
             fontWeight: 700,
+            fontFamily: FONT,
             color: '#E0E0E0',
             letterSpacing: '-0.02em',
             mb: 2,
@@ -971,16 +757,16 @@ function GuestbookSection() {
           Leave a Message
         </Typography>
         <Typography
-          sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem', textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
+          sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
         >
-          방문해주셔서 감사합니다. 짧은 인사나 피드백을 남겨주세요.
+          {'방문해주셔서 감사합니다. 짧은 인사나 피드백을 남겨주세요.'}
         </Typography>
 
         <GuestbookForm onSubmitSuccess={() => setRefreshTrigger(p => p + 1)} />
 
         <Box sx={{ mt: 10 }}>
           <Typography
-            sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.6rem', letterSpacing: 4, fontWeight: 600, mb: 3 }}
+            sx={{ color: 'rgba(224,224,224,0.2)', fontSize: '0.6rem', fontFamily: FONT, letterSpacing: 4, fontWeight: 600, mb: 3 }}
           >
             FEED
           </Typography>
@@ -988,21 +774,21 @@ function GuestbookSection() {
         </Box>
 
         <Typography
-          sx={{ color: 'rgba(224,224,224,0.2)', mt: 10, fontSize: '0.75rem', textAlign: 'center' }}
+          sx={{ color: 'rgba(224,224,224,0.2)', mt: 10, fontSize: '0.75rem', fontFamily: FONT, textAlign: 'center' }}
         >
-          © 2026 Choi Seulgi. All rights reserved.
+          {'© 2026 Choi Seulgi. All rights reserved.'}
         </Typography>
       </Container>
     </Box>
   )
 }
 
-/* ── Home 페이지 조합 ─────────────────────────────────────── */
+/* ── Home 페이지 ────────────────────────────────────────────── */
 export default function Home() {
   return (
     <Box>
       <HeroSection />
-      <ProjectsSection />
+      <HowIDesignSection />
       <ContactSection />
       <GuestbookSection />
     </Box>

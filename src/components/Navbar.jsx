@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
   { label: 'About Me', path: '/about' },
-  { label: 'Projects', path: '/projects' },
+  { label: 'Web Design', path: '/projects' },
+  { label: 'Editorial Design', path: '/projects' },
 ]
 
 export default function Navbar() {
