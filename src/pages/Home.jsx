@@ -566,7 +566,7 @@ function GuestbookFeed({ refreshTrigger }) {
                   {entry.writer_name}
                 </Typography>
                 {entry.company_or_job && (
-                  <Typography sx={{ color: '#E8E8E8', fontSize: '0.875rem', fontFamily: FONT }}>
+                  <Typography sx={{ color: '#D5D5D5', fontSize: '0.875rem', fontFamily: FONT }}>
                     {'· '}{entry.company_or_job}
                   </Typography>
                 )}
@@ -662,7 +662,7 @@ function ContactSection() {
           </Typography>
           <Typography
             sx={{
-              color: '#E8E8E8',
+              color: '#D5D5D5',
               fontSize: '1rem',
               fontFamily: FONT,
               textAlign: 'center',
@@ -776,7 +776,7 @@ function GuestbookSection() {
           {'Leave a Message'}
         </Typography>
         <Typography
-          sx={{ color: '#E8E8E8', fontSize: '1rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
+          sx={{ color: '#D5D5D5', fontSize: '1rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
         >
           {'방문해주셔서 감사합니다. 짧은 인사나 피드백을 남겨주세요.'}
         </Typography>
