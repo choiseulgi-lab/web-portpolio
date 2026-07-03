@@ -21,7 +21,7 @@ export default function Navbar() {
         boxShadow: 'none',
       }}
     >
-      <Toolbar sx={{ maxWidth: 1200, width: '100%', mx: 'auto', px: { xs: 2, md: 4 } }}>
+      <Toolbar sx={{ maxWidth: '100%', width: '100%', mx: 'auto', px: { xs: '20px', md: '80px' } }}>
         <Typography
           component={Link}
           to="/"

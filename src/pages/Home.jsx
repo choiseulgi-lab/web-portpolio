@@ -92,8 +92,8 @@ function HeroSection() {
     >
       {/* BG 마퀴 텍스트 2줄 */}
       {[
-        { top: '14%', anim: 'marqFwd 26s linear infinite' },
-        { top: '60%', anim: 'marqBwd 32s linear infinite' },
+        { top: '14%', anim: 'marqFwd 90s linear infinite' },
+        { top: '60%', anim: 'marqBwd 120s linear infinite' },
       ].map(({ top, anim }) => (
         <Box
           key={top}
@@ -136,8 +136,7 @@ function HeroSection() {
           zIndex: 2,
           textAlign: 'center',
           width: '100%',
-          maxWidth: 920,
-          px: { xs: 3, md: 6 },
+          px: { xs: '20px', md: '80px' },
         }}
       >
         {/* 헤드라인 */}
@@ -215,7 +214,7 @@ function HowIDesignSection() {
         borderBottom: '1px solid rgba(255,255,255,0.05)',
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
         <Box
           ref={ref}
           sx={{
@@ -610,7 +609,7 @@ function ContactSection() {
         borderTop: '1px solid rgba(224,224,224,0.06)',
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
         <Box
           ref={titleRef}
           sx={{
@@ -736,7 +735,7 @@ function GuestbookSection() {
         borderTop: '1px solid rgba(224,224,224,0.06)',
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
         <Typography
           variant="overline"
           sx={{ color: '#C4E038', letterSpacing: 0, mb: 2, display: 'block', textAlign: 'center', fontFamily: FONT }}
