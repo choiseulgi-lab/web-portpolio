@@ -16,7 +16,7 @@ const theme = createTheme({
       contrastText: '#FFFFFF',
     },
     background: {
-      default: '#0E0E0E',
+      default: '#141414',
       paper: '#1E1E1E',
     },
     text: {
@@ -27,12 +27,14 @@ const theme = createTheme({
     divider: '#2A2A2A',
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
-    h3: { fontWeight: 600 },
-    h4: { fontWeight: 600 },
-    h5: { fontWeight: 500 },
+    fontFamily: '"Pretendard", -apple-system, BlinkMacSystemFont, sans-serif',
+    h1: { fontWeight: 700, letterSpacing: '-0.01em' },
+    h2: { fontWeight: 700, letterSpacing: '-0.01em' },
+    h3: { fontWeight: 600, letterSpacing: '-0.01em' },
+    h4: { fontWeight: 600, letterSpacing: '-0.01em' },
+    h5: { fontWeight: 500, letterSpacing: '-0.01em' },
+    body1: { letterSpacing: '-0.01em' },
+    body2: { letterSpacing: '-0.01em' },
   },
   components: {
     MuiButton: {
@@ -52,6 +54,11 @@ const theme = createTheme({
             backgroundColor: 'rgba(196, 224, 56, 0.08)',
           },
         },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: { letterSpacing: '-0.01em' },
       },
     },
     MuiAppBar: {

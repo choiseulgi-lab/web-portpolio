@@ -12,7 +12,7 @@
   --color-accent-light:       #8FD458;
 
   /* Background Colors */
-  --color-bg-primary:         #0E0E0E;
+  --color-bg-primary:         #141414;
   --color-bg-secondary:       #FFFFFF;
   --color-bg-tertiary:        #F5F5F5;
   --color-bg-brand:           #BCD830;
@@ -47,8 +47,9 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-primary);
+  background-color: #141414;
   color: var(--color-text-primary);
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
 }

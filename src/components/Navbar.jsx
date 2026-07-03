@@ -14,7 +14,7 @@ export default function Navbar() {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: 'rgba(14, 14, 14, 0.55)',
+        backgroundColor: 'rgba(20, 20, 20, 0.75)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.06)',

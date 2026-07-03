@@ -72,7 +72,7 @@ function HeroSection() {
       sx={{
         position: 'relative',
         height: '100vh',
-        backgroundColor: '#0a0a0a',
+        backgroundColor: '#141414',
         overflow: 'hidden',
         pt: '64px',
         '@keyframes marqFwd': {
@@ -112,7 +112,7 @@ function HeroSection() {
                 fontFamily: FONT,
                 fontSize: { xs: '120px', md: '250px' },
                 fontWeight: 800,
-                color: 'rgba(255,255,255,0.038)',
+                color: '#1A1A1A',
                 letterSpacing: '-0.01em',
                 lineHeight: 1.6,
                 display: 'inline-block',
@@ -227,7 +227,7 @@ function HowIDesignSection() {
   return (
     <Box
       sx={{
-        backgroundColor: '#0f0f0f',
+        backgroundColor: '#141414',
         py: { xs: 14, md: 20 },
         borderTop: '1px solid rgba(255,255,255,0.05)',
         borderBottom: '1px solid rgba(255,255,255,0.05)',
@@ -624,7 +624,7 @@ function ContactSection() {
     <Box
       id="contact"
       sx={{
-        backgroundColor: '#121212',
+        backgroundColor: '#141414',
         py: { xs: 10, md: 14 },
         borderTop: '1px solid rgba(224,224,224,0.06)',
       }}
@@ -750,7 +750,7 @@ function GuestbookSection() {
   return (
     <Box
       sx={{
-        backgroundColor: '#0E0E0E',
+        backgroundColor: '#141414',
         py: { xs: 10, md: 14 },
         borderTop: '1px solid rgba(224,224,224,0.06)',
       }}
