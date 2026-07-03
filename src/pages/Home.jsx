@@ -640,7 +640,7 @@ function ContactSection() {
           <Typography
             sx={{
               color: '#C4E038',
-              fontSize: '1rem',
+              fontSize: '3.5rem',
               fontWeight: 600,
               lineHeight: 1.6,
               letterSpacing: '-0.01em',
@@ -654,7 +654,7 @@ function ContactSection() {
           </Typography>
           <Typography
             sx={{
-              fontSize: { xs: '2.8rem', md: '4.6875rem' },
+              fontSize: '3.5rem',
               fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
