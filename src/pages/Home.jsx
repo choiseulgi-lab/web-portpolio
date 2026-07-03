@@ -263,7 +263,7 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '1.1rem', md: '1.5rem' },
+              fontSize: { xs: '1.1rem', md: '1.25rem' },
               fontWeight: 300,
               color: 'rgba(255,255,255,0.45)',
               lineHeight: 1.6,
