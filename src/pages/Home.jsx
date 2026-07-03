@@ -811,7 +811,7 @@ function GuestbookSection() {
         <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Typography
           sx={{
-            fontSize: { xs: '2.8rem', md: '4.6875rem' },
+            fontSize: { xs: '2rem', md: '3.5rem' },
             fontWeight: 600,
             fontFamily: FONT,
             color: '#E0E0E0',
