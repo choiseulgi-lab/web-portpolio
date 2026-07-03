@@ -25,13 +25,14 @@ export default function Navbar() {
         <Typography
           component={Link}
           to="/"
-          variant="h6"
           sx={{
             flexGrow: 1,
             color: 'var(--color-primary)',
             textDecoration: 'none',
-            fontWeight: 700,
-            letterSpacing: 1,
+            fontWeight: 500,
+            fontSize: '1.25rem',
+            lineHeight: 1.5,
+            letterSpacing: '-0.01em',
           }}
         >
           Portfolio
@@ -49,6 +50,11 @@ export default function Navbar() {
                   borderBottom: active ? '2px solid var(--color-primary)' : '2px solid transparent',
                   borderRadius: 0,
                   px: 2,
+                  fontSize: '1.125rem',
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                  letterSpacing: '-0.01em',
+                  textTransform: 'none',
                   transition: 'color 0.2s',
                   '&:hover': { color: 'var(--color-primary)', backgroundColor: 'transparent' },
                 }}
