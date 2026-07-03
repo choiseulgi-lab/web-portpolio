@@ -38,7 +38,7 @@ const aboutMeData = {
     {
       id: 'how-i-design',
       title: 'How I Design',
-      content: '저는 모든 디자인에는 명확한 이유가 있어야 한다고 생각합니다. 정보의 우선순위를 분명하게 전달하고, 사용자가 자연스럽게 흐름을 따라갈 수 있도록 설계하는 것을 중요하게 여깁니다. 작은 간격과 정렬, 터치 영역까지도 근거를 가지고 결정하며 일관성 있는 사용자 경험을 만드는 데 집중합니다.',
+      content: '모든 디자인에 명확한 이유가 있어야 한다고 생각합니다.\n정보의 우선순위를 분명히 전달하고 사용자가 자연스럽게 흐름을 따라갈 수 있는 설계를 추구합니다.\n작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.',
     },
     {
       id: 'how-i-learn',
@@ -64,7 +64,7 @@ const cardSx = {
 }
 
 const labelSx = {
-  color: 'rgba(33,241,168,0.65)',
+  color: '#D2D2D2',
   fontSize: '0.68rem',
   letterSpacing: 3,
   fontWeight: 700,
@@ -157,24 +157,6 @@ export default function AboutMe() {
               {/* Profile */}
               <Box sx={{ ...cardSx, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <Typography component="span" sx={labelSx}>PROFILE</Typography>
-                {/* 사진 영역 — 실제 사진으로 교체 시 img 태그로 변경 */}
-                <Box
-                  sx={{
-                    width: '65%',
-                    aspectRatio: '3 / 4',
-                    backgroundColor: '#242424',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px dashed rgba(255,255,255,0.07)',
-                    mb: 3,
-                  }}
-                >
-                  <Typography sx={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.75rem', letterSpacing: 3 }}>
-                    PHOTO
-                  </Typography>
-                </Box>
                 <Typography
                   sx={{ color: '#E0E0E0', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '-0.02em', mb: 1 }}
                 >
@@ -264,7 +246,7 @@ export default function AboutMe() {
               {/* Education */}
               <Box sx={cardSx}>
                 <Typography component="span" sx={labelSx}>EDUCATION</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   {aboutMeData.basicInfo.education.map((item, i) => (
                     <Box key={i} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 0.25, md: 2 } }}>
                       <Typography sx={{ ...itemSx, color: 'rgba(224,224,224,0.4)', flexShrink: 0 }}>
@@ -279,7 +261,7 @@ export default function AboutMe() {
               {/* Work */}
               <Box sx={cardSx}>
                 <Typography component="span" sx={labelSx}>WORK</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   {aboutMeData.basicInfo.work.map((item, i) => (
                     <Box key={i} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 0.25, md: 2 } }}>
                       <Typography sx={{ ...itemSx, color: 'rgba(224,224,224,0.4)', flexShrink: 0 }}>
@@ -381,6 +363,7 @@ export default function AboutMe() {
                     fontSize: '0.9375rem',
                     lineHeight: 2,
                     wordBreak: 'keep-all',
+                    whiteSpace: 'pre-line',
                   }}
                 >
                   {section.content}
