@@ -28,8 +28,9 @@ function CircleButton({ size, label, to, outline }) {
         borderRadius: '50%',
         flexShrink: 0,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
+        pt: '32px',
         cursor: 'pointer',
         transition: 'transform 0.3s ease',
         '&:hover': { transform: 'scale(1.05) translateY(-8px)' },
@@ -791,9 +792,10 @@ function GuestbookSection() {
             mt: '-8px',
             mb: 2,
             textAlign: 'center',
+            whiteSpace: 'nowrap',
           }}
         >
-          Leave a Message
+          {'Leave a Message'}
         </Typography>
         <Typography
           sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
