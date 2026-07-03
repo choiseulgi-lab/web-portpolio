@@ -192,26 +192,26 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 원 3개 — 하단 클립, 양쪽이 30px 위에 위치 */}
+      {/* 원 3개 — 겹치는 디자인, 하단 클립 */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: '-245px',
+          bottom: '-80px',
           left: 0,
           right: 0,
           zIndex: 2,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
-          gap: { xs: '16px', md: '40px' },
-          px: { xs: '20px', md: '80px' },
         }}
       >
-        <Box sx={{ mb: '30px' }}>
+        <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
           <CircleButton size={417} outline label="About Me" to="/about" />
         </Box>
-        <CircleButton size={417} label="Web Design" to="/projects" />
-        <Box sx={{ mb: '30px' }}>
+        <Box sx={{ position: 'relative', zIndex: 3, flexShrink: 0 }}>
+          <CircleButton size={417} label="Web Design" to="/projects" />
+        </Box>
+        <Box sx={{ position: 'relative', zIndex: 2, ml: '-80px', flexShrink: 0 }}>
           <CircleButton size={417} outline label="Editorial Design" to="/projects" />
         </Box>
       </Box>
