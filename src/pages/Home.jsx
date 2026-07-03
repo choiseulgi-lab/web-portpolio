@@ -640,7 +640,7 @@ function ContactSection() {
           <Typography
             sx={{
               color: '#C4E038',
-              fontSize: '3.5rem',
+              fontSize: '1rem',
               fontWeight: 600,
               lineHeight: 1.6,
               letterSpacing: '-0.01em',
@@ -654,29 +654,28 @@ function ContactSection() {
           </Typography>
           <Typography
             sx={{
-              fontSize: '3.5rem',
+              fontSize: { xs: '2.8rem', md: '4.6875rem' },
               fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
               letterSpacing: '-0.01em',
               lineHeight: 1.6,
               mt: '-8px',
-              mb: 0,
+              mb: 2,
               textAlign: 'center',
+              whiteSpace: 'nowrap',
             }}
           >
             {`Let's Connect`}
           </Typography>
           <Typography
             sx={{
-              color: '#E8E8E8',
-              fontSize: '0.9375rem',
+              color: 'rgba(224,224,224,0.35)',
+              fontSize: '0.875rem',
               fontFamily: FONT,
               textAlign: 'center',
               mb: 8,
-              mt: 0,
               wordBreak: 'keep-all',
-              lineHeight: 1.8,
             }}
           >
             {'함께 성장할 기회를 찾고 있습니다.'}
