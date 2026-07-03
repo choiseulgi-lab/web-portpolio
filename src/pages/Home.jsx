@@ -501,15 +501,17 @@ function GuestbookForm({ onSubmitSuccess }) {
         size="large"
         disabled={submitting}
         sx={{
-          backgroundColor: '#21F1A8',
-          color: '#0E0E0E',
+          backgroundColor: 'transparent',
+          color: '#21F1A8',
           fontWeight: 700,
           fontFamily: FONT,
           px: 4,
-          '&:hover': { backgroundColor: '#4FF5BC' },
+          border: '1.5px solid #21F1A8',
+          '&:hover': { backgroundColor: '#21F1A8', color: '#0E0E0E', borderColor: '#21F1A8' },
           '&.Mui-disabled': {
-            backgroundColor: 'rgba(33,241,168,0.3)',
-            color: 'rgba(14,14,14,0.4)',
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(33,241,168,0.3)',
+            color: 'rgba(33,241,168,0.3)',
           },
         }}
       >
