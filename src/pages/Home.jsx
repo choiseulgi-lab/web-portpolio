@@ -15,54 +15,6 @@ const OPEN_Q = String.fromCharCode(0x201C)
 const CLOSE_Q = String.fromCharCode(0x201D)
 const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi "
 
-/* ── CircleButton ───────────────────────────────────────────── */
-function CircleButton({ label, to, outline }) {
-  const navigate = useNavigate()
-
-  return (
-    <Box
-      onClick={() => navigate(to)}
-      sx={{
-        width:  { xs: 140, sm: 220, md: 320, lg: 417 },
-        height: { xs: 140, sm: 220, md: 320, lg: 417 },
-        borderRadius: '50%',
-        flexShrink: 0,
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        pt: { xs: '16px', sm: '24px', md: '28px', lg: '32px' },
-        cursor: 'pointer',
-        transition: 'transform 0.3s ease',
-        '&:hover': { transform: 'scale(1.05) translateY(-8px)' },
-        ...(outline
-          ? {
-              backgroundColor: 'transparent',
-              border: '1.5px solid rgba(255,255,255,0.5)',
-            }
-          : {
-              backgroundColor: '#ffffff',
-              boxShadow: 'inset -6px -8px 16px rgba(0,0,0,0.2), inset 5px 6px 14px rgba(255,255,255,0.5)',
-            }),
-      }}
-    >
-      <Typography
-        sx={{
-          fontFamily: FONT,
-          color: outline ? '#E8E8E8' : '#242424',
-          fontWeight: 600,
-          fontSize: { xs: '0.65rem', sm: '0.8rem', md: '0.875rem', lg: '1rem' },
-          textAlign: 'center',
-          px: { xs: 1, sm: 1.5, md: 2, lg: 3 },
-          lineHeight: 1.4,
-          userSelect: 'none',
-          letterSpacing: '-0.01em',
-        }}
-      >
-        {label}
-      </Typography>
-    </Box>
-  )
-}
 
 /* ── 1. Hero 섹션 ───────────────────────────────────────────── */
 function HeroSection() {
@@ -71,7 +23,6 @@ function HeroSection() {
 
   const [typed, setTyped] = useState('')
   const [typingDone, setTypingDone] = useState(false)
-  const [circleRef, circleInView] = useInView()
 
   useEffect(() => {
     let intervalId = null
@@ -92,10 +43,6 @@ function HeroSection() {
     }
   }, [])
 
-  const circleVisible = typingDone && circleInView
-  const overlapMr = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
-  const overlapMl = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
-
   return (
     <Box
       sx={{
@@ -114,6 +61,10 @@ function HeroSection() {
         '@keyframes blink': {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0 },
+        },
+        '@keyframes photoLeft': {
+          '0%':   { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       }}
     >
@@ -234,39 +185,38 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 원 3개 — 흐름 배치 + 스크롤 clip-path 드로잉 */}
+      {/* 사진 마퀴 스트립 */}
       <Box
-        ref={circleRef}
         sx={{
           position: 'relative',
           zIndex: 2,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
+          overflow: 'hidden',
           mt: { xs: '48px', sm: '64px', md: '80px' },
+          opacity: typingDone ? 1 : 0,
+          transition: 'opacity 0.8s ease 0.9s',
         }}
       >
-        {[
-          { outline: true,  label: 'About Me',        to: '/about',    z: 1, mr: overlapMr, delay: '0s'    },
-          { outline: false, label: 'Web Design',       to: '/projects', z: 3,                delay: '0.2s'  },
-          { outline: true,  label: 'Editorial Design', to: '/projects', z: 2, ml: overlapMl, delay: '0.4s' },
-        ].map(({ outline, label, to, z, mr, ml, delay }) => (
-          <Box
-            key={label}
-            sx={{
-              position: 'relative',
-              zIndex: z,
-              flexShrink: 0,
-              ...(mr && { mr }),
-              ...(ml && { ml }),
-              clipPath: circleVisible ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
-              transition: `clip-path 0.8s ease ${delay}`,
-              pointerEvents: circleVisible ? 'auto' : 'none',
-            }}
-          >
-            <CircleButton outline={outline} label={label} to={to} />
-          </Box>
-        ))}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '20px',
+            animation: 'photoLeft 22s linear infinite',
+            width: 'max-content',
+          }}
+        >
+          {[0, 1, 2, 3, 4, 0, 1, 2, 3, 4].map((_, i) => (
+            <Box
+              key={i}
+              sx={{
+                width: '427px',
+                height: '460px',
+                flexShrink: 0,
+                backgroundColor: '#242424',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+            />
+          ))}
+        </Box>
       </Box>
     </Box>
   )
