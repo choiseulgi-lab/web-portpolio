@@ -16,9 +16,9 @@ function OverlayButton({ href, label }) {
         px: 3,
         py: 1,
         minWidth: 148,
-        border: '1.5px solid #C4E038',
+        border: '1.5px solid #21F1A8',
         borderRadius: '4px',
-        color: '#C4E038',
+        color: '#21F1A8',
         backgroundColor: 'transparent',
         fontSize: '0.8rem',
         fontWeight: 700,
@@ -27,7 +27,7 @@ function OverlayButton({ href, label }) {
         transition: 'background-color 0.2s ease, color 0.2s ease, transform 0.15s ease',
         cursor: 'pointer',
         userSelect: 'none',
-        '&:hover': { color: '#0E0E0E', backgroundColor: '#C4E038' },
+        '&:hover': { color: '#0E0E0E', backgroundColor: '#21F1A8' },
         '&:active': { transform: 'scale(0.95)' },
       }}
     >
@@ -65,7 +65,7 @@ export default function ProjectCard({ project }) {
         transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease',
         transform: isActive ? 'translateY(-6px) scale(1.015)' : 'translateY(0) scale(1)',
         boxShadow: isActive
-          ? '0 20px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(196,224,56,0.12)'
+          ? '0 20px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(33,241,168,0.12)'
           : '0 2px 8px rgba(0,0,0,0.25)',
         willChange: 'transform',
         '&:active': { backgroundColor: isTouchDevice() ? '#222222' : '#1E1E1E' },
@@ -100,7 +100,7 @@ export default function ProjectCard({ project }) {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <Typography sx={{ color: 'rgba(196,224,56,0.25)', fontSize: '2.5rem' }}>⚡</Typography>
+            <Typography sx={{ color: 'rgba(33,241,168,0.25)', fontSize: '2.5rem' }}>⚡</Typography>
           </Box>
         )}
 
@@ -172,7 +172,7 @@ export default function ProjectCard({ project }) {
             </Typography>
           )}
           {project.participation && (
-            <Typography sx={{ color: 'rgba(196,224,56,0.45)', fontSize: '0.75rem' }}>
+            <Typography sx={{ color: 'rgba(33,241,168,0.45)', fontSize: '0.75rem' }}>
               {project.participation}
             </Typography>
           )}

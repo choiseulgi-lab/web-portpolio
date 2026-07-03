@@ -31,13 +31,13 @@ export default function BackToTop() {
           width: 44,
           height: 44,
           backgroundColor: 'rgba(14,14,14,0.85)',
-          border: '1px solid rgba(196,224,56,0.35)',
-          color: '#C4E038',
+          border: '1px solid rgba(33,241,168,0.35)',
+          color: '#21F1A8',
           backdropFilter: 'blur(8px)',
           transition: 'all 0.2s ease',
           '&:hover': {
-            backgroundColor: 'rgba(196,224,56,0.12)',
-            borderColor: '#C4E038',
+            backgroundColor: 'rgba(33,241,168,0.12)',
+            borderColor: '#21F1A8',
             transform: 'translateY(-3px)',
           },
         }}

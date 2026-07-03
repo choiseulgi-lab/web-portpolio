@@ -465,7 +465,7 @@ function GuestbookForm({ onSubmitSuccess }) {
                 fontSize: '1.3rem',
                 cursor: 'pointer',
                 border: form.emoji === e
-                  ? '1.5px solid #C4E038'
+                  ? '1.5px solid #21F1A8'
                   : '1px solid rgba(224,224,224,0.12)',
                 transition: 'border-color 0.2s, background-color 0.2s',
                 backgroundColor: form.emoji === e ? 'rgba(33,241,168,0.06)' : 'transparent',
