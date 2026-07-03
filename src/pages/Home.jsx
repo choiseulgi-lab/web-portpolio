@@ -265,7 +265,7 @@ function HowIDesignSection() {
               fontFamily: FONT,
               fontSize: { xs: '1.1rem', md: '1.25rem' },
               fontWeight: 300,
-              color: 'rgba(255,255,255,0.45)',
+              color: '#D2D2D2',
               lineHeight: 1.6,
               wordBreak: 'keep-all',
             }}
