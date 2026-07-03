@@ -250,7 +250,7 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '2.8rem', md: '4.6875rem' },
+              fontSize: { xs: '2.8rem', md: '4.375rem' },
               fontWeight: 600,
               color: '#ffffff',
               letterSpacing: '-0.01em',
@@ -646,7 +646,7 @@ function ContactSection() {
         >
           <Typography
             sx={{
-              fontSize: { xs: '2rem', md: '3.5rem' },
+              fontSize: { xs: '1.8rem', md: '2.625rem' },
               fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
@@ -663,7 +663,7 @@ function ContactSection() {
           <Typography
             sx={{
               color: 'rgba(224,224,224,0.35)',
-              fontSize: '0.875rem',
+              fontSize: '1rem',
               fontFamily: FONT,
               textAlign: 'center',
               mb: 8,
@@ -761,7 +761,7 @@ function GuestbookSection() {
         <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Typography
           sx={{
-            fontSize: { xs: '2rem', md: '3.5rem' },
+            fontSize: { xs: '1.8rem', md: '2.625rem' },
             fontWeight: 600,
             fontFamily: FONT,
             color: '#E0E0E0',
@@ -776,7 +776,7 @@ function GuestbookSection() {
           {'Leave a Message'}
         </Typography>
         <Typography
-          sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '0.875rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
+          sx={{ color: 'rgba(224,224,224,0.35)', fontSize: '1rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
         >
           {'방문해주셔서 감사합니다. 짧은 인사나 피드백을 남겨주세요.'}
         </Typography>
