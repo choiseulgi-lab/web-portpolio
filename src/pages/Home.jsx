@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   Box, Typography, Container, Button,
   TextField, Divider, Snackbar, Alert,
@@ -73,6 +73,14 @@ function HeroSection() {
   const [typingDone, setTypingDone] = useState(false)
   const [circleRef, circleInView] = useInView()
 
+  const heroRef    = useRef(null)
+  const canvasRef  = useRef(null)
+  const glowRef    = useRef(null)
+  const cursorRef  = useRef(null)
+  const mouseRef   = useRef({ x: -9999, y: -9999 })
+  const rafRef     = useRef(null)
+
+  // 타이핑 효과
   useEffect(() => {
     let intervalId = null
     const timeoutId = setTimeout(() => {
@@ -92,183 +100,251 @@ function HeroSection() {
     }
   }, [])
 
+  // Canvas dot 그리드
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    const hasPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+    const setup = () => {
+      canvas.width  = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+    }
+    setup()
+
+    const LR = 33, LG = 241, LB = 168  // #21F1A8
+    const REACT_R = 200
+
+    const tick = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const spacing = canvas.width / 30
+      const { x: mx, y: my } = mouseRef.current
+
+      for (let cx = spacing / 2; cx < canvas.width; cx += spacing) {
+        for (let cy = spacing / 2; cy < canvas.height; cy += spacing) {
+          const dist = Math.hypot(cx - mx, cy - my)
+          const t    = hasPointer ? Math.max(0, 1 - dist / REACT_R) : 0
+          const r    = Math.round(255 + t * (LR - 255))
+          const g    = Math.round(255 + t * (LG - 255))
+          const b    = Math.round(255 + t * (LB - 255))
+          ctx.beginPath()
+          ctx.arc(cx, cy, 1.5 + t * 2, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(${r},${g},${b},${0.15 + t * 0.55})`
+          ctx.fill()
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    tick()
+
+    const onResize = () => setup()
+    window.addEventListener('resize', onResize)
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
+  // 마우스 추적
+  useEffect(() => {
+    const hero = heroRef.current
+    if (!hero) return
+
+    const onMove = (e) => {
+      const rect = hero.getBoundingClientRect()
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+      if (glowRef.current) {
+        glowRef.current.style.left    = `${e.clientX - rect.left}px`
+        glowRef.current.style.top     = `${e.clientY - rect.top}px`
+        glowRef.current.style.opacity = '1'
+      }
+      if (cursorRef.current) {
+        cursorRef.current.style.left    = `${e.clientX}px`
+        cursorRef.current.style.top     = `${e.clientY}px`
+        cursorRef.current.style.opacity = '1'
+      }
+    }
+    const onLeave = () => {
+      mouseRef.current = { x: -9999, y: -9999 }
+      if (glowRef.current)  glowRef.current.style.opacity  = '0'
+      if (cursorRef.current) cursorRef.current.style.opacity = '0'
+    }
+
+    hero.addEventListener('mousemove', onMove)
+    hero.addEventListener('mouseleave', onLeave)
+    return () => {
+      hero.removeEventListener('mousemove', onMove)
+      hero.removeEventListener('mouseleave', onLeave)
+    }
+  }, [])
+
   const circleVisible = typingDone && circleInView
   const overlapMr = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
   const overlapMl = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        minHeight: '100vh',
-        backgroundColor: '#171717',
-        pt: '64px',
-        '@keyframes marqFwd': {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-        '@keyframes marqBwd': {
-          '0%': { transform: 'translateX(-50%)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-        '@keyframes blink': {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0 },
-        },
-      }}
-    >
-      {/* BG 마퀴 — overflow:hidden 컨테이너 */}
-      <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, pointerEvents: 'none' }}>
-        {[
-          { top: '5%', anim: 'marqFwd 130s linear infinite' },
-          { top: '54%', anim: 'marqBwd 160s linear infinite' },
-        ].map(({ top, anim }) => (
-          <Box
-            key={top}
-            sx={{
-              position: 'absolute',
-              top,
-              left: 0,
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              animation: anim,
-              userSelect: 'none',
-            }}
-          >
-            {[0, 1].map(i => (
-              <Box
-                key={i}
-                component="span"
-                sx={{
-                  fontFamily: FONT,
-                  fontSize: { xs: '120px', md: '250px' },
-                  fontWeight: 600,
-                  color: '#1E1E1E',
-                  letterSpacing: '-0.01em',
-                  lineHeight: 1.6,
-                  display: 'inline-block',
-                }}
-              >
-                {marqueeLine}
-              </Box>
-            ))}
-          </Box>
-        ))}
-      </Box>
-
-      {/* 텍스트 콘텐츠 */}
+    <>
       <Box
+        ref={heroRef}
         sx={{
           position: 'relative',
-          zIndex: 2,
-          textAlign: 'center',
-          pt: { xs: '12%', md: '10%' },
-          px: { xs: '20px', md: '80px' },
+          minHeight: '100vh',
+          backgroundColor: '#171717',
+          pt: '64px',
+          isolation: 'isolate',
+          '@keyframes marqFwd': {
+            '0%':   { transform: 'translateX(0)' },
+            '100%': { transform: 'translateX(-50%)' },
+          },
+          '@keyframes marqBwd': {
+            '0%':   { transform: 'translateX(-50%)' },
+            '100%': { transform: 'translateX(0)' },
+          },
+          '@keyframes blink': {
+            '0%, 100%': { opacity: 1 },
+            '50%':      { opacity: 0 },
+          },
         }}
       >
-        <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
-          <Typography
-            sx={{
-              fontFamily: FONT,
-              fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
-              fontWeight: 600,
-              color: '#ffffff',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.1,
-            }}
-          >
-            {typed}
-            {!typingDone && (
-              <Box component="span" sx={{ animation: 'blink 0.7s step-end infinite', ml: '2px' }}>|</Box>
-            )}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: { xs: 3, md: 4 } }}>
-          <Typography
-            sx={{
-              fontFamily: FONT,
-              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
-              fontWeight: 500,
-              lineHeight: 1.35,
-              letterSpacing: '-0.01em',
-              opacity: typingDone ? 1 : 0,
-              transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s',
-            }}
-          >
-            <Box component="span" sx={{ color: LIME }}>이유</Box>
-            <Box component="span" sx={{ color: '#ffffff' }}>를 담아 설계하는</Box>
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: FONT,
-              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
-              fontWeight: 500,
-              lineHeight: 1.35,
-              letterSpacing: '-0.01em',
-              opacity: typingDone ? 1 : 0,
-              transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s',
-            }}
-          >
-            <Box component="span" sx={{ color: '#ffffff' }}>디자이너 </Box>
-            <Box component="span" sx={{ color: LIME }}>최슬기</Box>
-            <Box component="span" sx={{ color: '#ffffff' }}>입니다</Box>
-          </Typography>
-        </Box>
-
-        <Typography
+        {/* Canvas dot 그리드 */}
+        <Box
+          component="canvas"
+          ref={canvasRef}
           sx={{
-            fontFamily: FONT,
-            fontSize: '1.125rem',
-            color: 'rgba(255,255,255,0.28)',
-            letterSpacing: '-0.01em',
-            fontWeight: 400,
-            opacity: typingDone ? 1 : 0,
-            transform: typingDone ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s',
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            zIndex: 0,
+            pointerEvents: 'none',
           }}
+        />
+
+        {/* 마우스 radial 글로우 */}
+        <Box
+          ref={glowRef}
+          sx={{
+            position: 'absolute',
+            width: '600px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(33,241,168,0.1) 0%, transparent 70%)',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+            mixBlendMode: 'screen',
+            zIndex: 1,
+            opacity: 0,
+            transition: 'opacity 0.4s ease',
+          }}
+        />
+
+        {/* BG 마퀴 */}
+        <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 1, pointerEvents: 'none' }}>
+          {[
+            { top: '5%',  anim: 'marqFwd 130s linear infinite' },
+            { top: '54%', anim: 'marqBwd 160s linear infinite' },
+          ].map(({ top, anim }) => (
+            <Box
+              key={top}
+              sx={{ position: 'absolute', top, left: 0, whiteSpace: 'nowrap', display: 'flex', animation: anim, userSelect: 'none' }}
+            >
+              {[0, 1].map(i => (
+                <Box
+                  key={i}
+                  component="span"
+                  sx={{ fontFamily: FONT, fontSize: { xs: '120px', md: '250px' }, fontWeight: 600, color: '#1E1E1E', letterSpacing: '-0.01em', lineHeight: 1.6, display: 'inline-block' }}
+                >
+                  {marqueeLine}
+                </Box>
+              ))}
+            </Box>
+          ))}
+        </Box>
+
+        {/* 텍스트 콘텐츠 */}
+        <Box
+          sx={{ position: 'relative', zIndex: 2, textAlign: 'center', pt: { xs: '12%', md: '10%' }, px: { xs: '20px', md: '80px' } }}
         >
-          Web & Editorial Designer
-        </Typography>
+          <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
+            <Typography
+              sx={{ fontFamily: FONT, fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' }, fontWeight: 600, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.1 }}
+            >
+              {typed}
+              {!typingDone && (
+                <Box component="span" sx={{ animation: 'blink 0.7s step-end infinite', ml: '2px' }}>|</Box>
+              )}
+            </Typography>
+          </Box>
+
+          <Box sx={{ mb: { xs: 3, md: 4 } }}>
+            <Typography
+              sx={{ fontFamily: FONT, fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' }, fontWeight: 500, lineHeight: 1.35, letterSpacing: '-0.01em', opacity: typingDone ? 1 : 0, transform: typingDone ? 'translateY(0)' : 'translateY(20px)', transition: 'opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s' }}
+            >
+              <Box component="span" sx={{ color: LIME }}>이유</Box>
+              <Box component="span" sx={{ color: '#ffffff' }}>를 담아 설계하는</Box>
+            </Typography>
+            <Typography
+              sx={{ fontFamily: FONT, fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' }, fontWeight: 500, lineHeight: 1.35, letterSpacing: '-0.01em', opacity: typingDone ? 1 : 0, transform: typingDone ? 'translateY(0)' : 'translateY(20px)', transition: 'opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s' }}
+            >
+              <Box component="span" sx={{ color: '#ffffff' }}>디자이너 </Box>
+              <Box component="span" sx={{ color: LIME }}>최슬기</Box>
+              <Box component="span" sx={{ color: '#ffffff' }}>입니다</Box>
+            </Typography>
+          </Box>
+
+          <Typography
+            sx={{ fontFamily: FONT, fontSize: '1.125rem', color: 'rgba(255,255,255,0.28)', letterSpacing: '-0.01em', fontWeight: 400, opacity: typingDone ? 1 : 0, transform: typingDone ? 'translateY(0)' : 'translateY(20px)', transition: 'opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s' }}
+          >
+            Web & Editorial Designer
+          </Typography>
+        </Box>
+
+        {/* 원 3개 */}
+        <Box
+          ref={circleRef}
+          sx={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', mt: { xs: '48px', sm: '64px', md: '80px' } }}
+        >
+          {[
+            { outline: true,  label: 'About Me',        to: '/about',    z: 1, mr: overlapMr, delay: '0s'   },
+            { outline: false, label: 'Web Design',       to: '/projects', z: 3,                delay: '0.2s' },
+            { outline: true,  label: 'Editorial Design', to: '/projects', z: 2, ml: overlapMl, delay: '0.4s' },
+          ].map(({ outline, label, to, z, mr, ml, delay }) => (
+            <Box
+              key={label}
+              sx={{
+                position: 'relative', zIndex: z, flexShrink: 0,
+                ...(mr && { mr }), ...(ml && { ml }),
+                clipPath: circleVisible ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
+                transition: `clip-path 0.8s ease ${delay}`,
+                pointerEvents: circleVisible ? 'auto' : 'none',
+              }}
+            >
+              <CircleButton outline={outline} label={label} to={to} />
+            </Box>
+          ))}
+        </Box>
       </Box>
 
-      {/* 원 3개 — 흐름 배치 + 스크롤 clip-path 드로잉 */}
+      {/* 색 반전 커서 */}
       <Box
-        ref={circleRef}
+        ref={cursorRef}
         sx={{
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
-          mt: { xs: '48px', sm: '64px', md: '80px' },
+          position: 'fixed',
+          top: 0, left: 0,
+          width: '60px', height: '60px',
+          borderRadius: '50%',
+          backgroundColor: '#ffffff',
+          mixBlendMode: 'difference',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          opacity: 0,
+          transition: 'opacity 0.3s ease',
         }}
-      >
-        {[
-          { outline: true,  label: 'About Me',        to: '/about',    z: 1, mr: overlapMr, delay: '0s'    },
-          { outline: false, label: 'Web Design',       to: '/projects', z: 3,                delay: '0.2s'  },
-          { outline: true,  label: 'Editorial Design', to: '/projects', z: 2, ml: overlapMl, delay: '0.4s' },
-        ].map(({ outline, label, to, z, mr, ml, delay }) => (
-          <Box
-            key={label}
-            sx={{
-              position: 'relative',
-              zIndex: z,
-              flexShrink: 0,
-              ...(mr && { mr }),
-              ...(ml && { ml }),
-              clipPath: circleVisible ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
-              transition: `clip-path 0.8s ease ${delay}`,
-              pointerEvents: circleVisible ? 'auto' : 'none',
-            }}
-          >
-            <CircleButton outline={outline} label={label} to={to} />
-          </Box>
-        ))}
-      </Box>
-    </Box>
+      />
+    </>
   )
 }
 
