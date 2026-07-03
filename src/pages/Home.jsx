@@ -640,21 +640,6 @@ function ContactSection() {
         >
           <Typography
             sx={{
-              color: '#21F1A8',
-              fontSize: '1rem',
-              fontWeight: 600,
-              lineHeight: 1.6,
-              letterSpacing: '-0.01em',
-              mb: 0,
-              display: 'block',
-              textAlign: 'center',
-              fontFamily: FONT,
-            }}
-          >
-            Contact
-          </Typography>
-          <Typography
-            sx={{
               fontSize: { xs: '2.8rem', md: '4.6875rem' },
               fontWeight: 600,
               fontFamily: FONT,
@@ -766,21 +751,6 @@ function GuestbookSection() {
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
         <Box sx={{ maxWidth: 560, mx: 'auto' }}>
-        <Typography
-          sx={{
-            color: '#21F1A8',
-            fontSize: '1rem',
-            fontWeight: 600,
-            lineHeight: 1.6,
-            letterSpacing: '-0.01em',
-            mb: 0,
-            display: 'block',
-            textAlign: 'center',
-            fontFamily: FONT,
-          }}
-        >
-          Guestbook
-        </Typography>
         <Typography
           sx={{
             fontSize: { xs: '2.8rem', md: '4.6875rem' },
