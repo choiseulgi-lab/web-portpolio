@@ -1,0 +1,54 @@
+:root {
+  /* Primary Colors */
+  --color-primary:            #C4E038;
+  --color-primary-light:      #D6F04A;
+  --color-primary-dark:       #9DB82C;
+
+  /* Secondary Colors */
+  --color-secondary:          #0E0E0E;
+  --color-secondary-light:    #1E1E1E;
+  --color-secondary-dark:     #000000;
+  --color-accent:             #6BBF3C;
+  --color-accent-light:       #8FD458;
+
+  /* Background Colors */
+  --color-bg-primary:         #0E0E0E;
+  --color-bg-secondary:       #FFFFFF;
+  --color-bg-tertiary:        #F5F5F5;
+  --color-bg-brand:           #BCD830;
+
+  /* Text Colors */
+  --color-text-primary:       #FFFFFF;
+  --color-text-secondary:     #1A1A1A;
+  --color-text-muted:         #888888;
+  --color-text-disabled:      #555555;
+  --color-text-accent:        #C4E038;
+  --color-text-inverse:       #0E0E0E;
+
+  /* Interactive Colors */
+  --color-button-primary:     #C4E038;
+  --color-button-hover:       #D6F04A;
+  --color-link:               #C4E038;
+  --color-link-hover:         #D6F04A;
+
+  /* Border Colors */
+  --color-border-dark:        #2A2A2A;
+  --color-border-light:       #E0E0E0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
