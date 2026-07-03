@@ -16,21 +16,21 @@ const CLOSE_Q = String.fromCharCode(0x201D)
 const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi "
 
 /* ── CircleButton ───────────────────────────────────────────── */
-function CircleButton({ size, label, to, outline }) {
+function CircleButton({ label, to, outline }) {
   const navigate = useNavigate()
 
   return (
     <Box
       onClick={() => navigate(to)}
       sx={{
-        width: size,
-        height: size,
+        width:  { xs: 140, sm: 220, md: 320, lg: 417 },
+        height: { xs: 140, sm: 220, md: 320, lg: 417 },
         borderRadius: '50%',
         flexShrink: 0,
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        pt: '32px',
+        pt: { xs: '16px', sm: '24px', md: '28px', lg: '32px' },
         cursor: 'pointer',
         transition: 'transform 0.3s ease',
         '&:hover': { transform: 'scale(1.05) translateY(-8px)' },
@@ -50,9 +50,9 @@ function CircleButton({ size, label, to, outline }) {
           fontFamily: FONT,
           color: outline ? '#E8E8E8' : '#242424',
           fontWeight: 600,
-          fontSize: size > 340 ? '1rem' : '0.875rem',
+          fontSize: { xs: '0.65rem', sm: '0.8rem', md: '0.875rem', lg: '1rem' },
           textAlign: 'center',
-          px: 3,
+          px: { xs: 1, sm: 1.5, md: 2, lg: 3 },
           lineHeight: 1.4,
           userSelect: 'none',
           letterSpacing: '-0.01em',
@@ -71,7 +71,7 @@ function HeroSection() {
 
   const [typed, setTyped] = useState('')
   const [typingDone, setTypingDone] = useState(false)
-  const [circleShift, setCircleShift] = useState(0)
+  const [circleRef, circleInView] = useInView()
 
   useEffect(() => {
     let intervalId = null
@@ -92,21 +92,15 @@ function HeroSection() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const ratio = Math.min(window.scrollY / (window.innerHeight * 0.4), 1)
-      setCircleShift(ratio * 278)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const circleVisible = typingDone && circleInView
+  const overlapMr = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
+  const overlapMl = { xs: '-35px', sm: '-55px', md: '-70px', lg: '-80px' }
 
   return (
     <Box
       sx={{
         position: 'relative',
-        height: '100vh',
-        overflow: 'hidden',
+        minHeight: '100vh',
         backgroundColor: '#171717',
         pt: '64px',
         '@keyframes marqFwd': {
@@ -123,7 +117,7 @@ function HeroSection() {
         },
       }}
     >
-      {/* BG 마퀴 — 별도 overflow:hidden 컨테이너 */}
+      {/* BG 마퀴 — overflow:hidden 컨테이너 */}
       <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, pointerEvents: 'none' }}>
         {[
           { top: '5%', anim: 'marqFwd 130s linear infinite' },
@@ -172,7 +166,6 @@ function HeroSection() {
           px: { xs: '20px', md: '80px' },
         }}
       >
-        {/* 헤드라인 — 타이핑 효과 */}
         <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
           <Typography
             sx={{
@@ -191,7 +184,6 @@ function HeroSection() {
           </Typography>
         </Box>
 
-        {/* 서브 텍스트 — 2줄 순차 fade-in */}
         <Box sx={{ mb: { xs: 3, md: 4 } }}>
           <Typography
             sx={{
@@ -226,7 +218,6 @@ function HeroSection() {
           </Typography>
         </Box>
 
-        {/* Web & Editorial Designer */}
         <Typography
           sx={{
             fontFamily: FONT,
@@ -243,37 +234,39 @@ function HeroSection() {
         </Typography>
       </Box>
 
-      {/* 원 3개 — 입장 애니메이션 + 스크롤 translateY 언베일 */}
+      {/* 원 3개 — 흐름 배치 + 스크롤 clip-path 드로잉 */}
       <Box
+        ref={circleRef}
         sx={{
-          position: 'absolute',
-          bottom: '-278px',
-          left: 0,
-          right: 0,
+          position: 'relative',
           zIndex: 2,
-          opacity: typingDone ? 1 : 0,
-          transform: typingDone ? 'translateY(0)' : 'translateY(80px)',
-          transition: 'opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          mt: { xs: '48px', sm: '64px', md: '80px' },
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            transform: `translateY(-${circleShift}px)`,
-          }}
-        >
-          <Box sx={{ position: 'relative', zIndex: 1, mr: '-80px', flexShrink: 0 }}>
-            <CircleButton size={417} outline label="About Me" to="/about" />
+        {[
+          { outline: true,  label: 'About Me',        to: '/about',    z: 1, mr: overlapMr, delay: '0s'    },
+          { outline: false, label: 'Web Design',       to: '/projects', z: 3,                delay: '0.2s'  },
+          { outline: true,  label: 'Editorial Design', to: '/projects', z: 2, ml: overlapMl, delay: '0.4s' },
+        ].map(({ outline, label, to, z, mr, ml, delay }) => (
+          <Box
+            key={label}
+            sx={{
+              position: 'relative',
+              zIndex: z,
+              flexShrink: 0,
+              ...(mr && { mr }),
+              ...(ml && { ml }),
+              clipPath: circleVisible ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
+              transition: `clip-path 0.8s ease ${delay}`,
+              pointerEvents: circleVisible ? 'auto' : 'none',
+            }}
+          >
+            <CircleButton outline={outline} label={label} to={to} />
           </Box>
-          <Box sx={{ position: 'relative', zIndex: 3, flexShrink: 0 }}>
-            <CircleButton size={417} label="Web Design" to="/projects" />
-          </Box>
-          <Box sx={{ position: 'relative', zIndex: 2, ml: '-80px', flexShrink: 0 }}>
-            <CircleButton size={417} outline label="Editorial Design" to="/projects" />
-          </Box>
-        </Box>
+        ))}
       </Box>
     </Box>
   )
