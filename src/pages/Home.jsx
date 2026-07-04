@@ -201,7 +201,7 @@ function HeroSection() {
           overflow: 'hidden',
           mt: { xs: '48px', sm: '64px', md: '200px' },
           opacity: typingDone ? 1 : 0,
-          transition: 'opacity 1.4s ease 1.8s',
+          transition: 'opacity 1.4s ease 1.3s',
         }}
       >
         <Box
@@ -285,7 +285,7 @@ function HowIDesignSection() {
             }}
           >
             {'모든 디자인에 명확한 이유가 있어야 한다고 생각합니다. 정보의 우선순위를 분명히 전달하고 사용자가 자연스럽게 흐름을 따라갈 수 있는 설계를 추구합니다.'}
-            <br /><br />
+            <br />
             {'작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
           </Typography>
           {/* 데스크탑: 줄바꿈 유지 */}
