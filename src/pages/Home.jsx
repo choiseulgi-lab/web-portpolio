@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { IconStack2, IconRoute, IconGridDots } from '@tabler/icons-react'
 import photo1 from '../assets/project01-main.jpg'
 import photo2 from '../assets/project02-main.jpg'
 import photo3 from '../assets/project03-main.jpg'
@@ -272,8 +273,8 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '1.1rem', md: '1.25rem' },
-              fontWeight: 300,
+              fontSize: '1rem',
+              fontWeight: 500,
               color: '#D2D2D2',
               lineHeight: 1.6,
               wordBreak: 'keep-all',
@@ -285,6 +286,21 @@ function HowIDesignSection() {
             <br />
             {'작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
           </Typography>
+
+          <Box sx={{ mt: '40px', display: 'flex', justifyContent: 'center', gap: { xs: '32px', md: '80px' } }}>
+            {[
+              { Icon: IconStack2,   label: '분명한 우선순위' },
+              { Icon: IconRoute,    label: '자연스러운 흐름' },
+              { Icon: IconGridDots, label: '근거 있는 디테일' },
+            ].map(({ Icon, label }) => (
+              <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Icon size={20} stroke={1.5} color={LIME} />
+                <Typography sx={{ fontFamily: FONT, fontSize: '0.875rem', fontWeight: 500, color: '#D2D2D2', letterSpacing: '-0.01em' }}>
+                  {label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Container>
     </Box>
@@ -646,7 +662,7 @@ function ContactSection() {
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
-        <Box sx={{ maxWidth: 560, mx: 'auto' }}>
+        <Box sx={{ maxWidth: 762, mx: 'auto' }}>
         <Box
           ref={titleRef}
           sx={{
@@ -769,7 +785,7 @@ function GuestbookSection() {
       }}
     >
       <Container maxWidth={false} sx={{ px: { xs: '20px', md: '80px' } }}>
-        <Box sx={{ maxWidth: 560, mx: 'auto' }}>
+        <Box sx={{ maxWidth: 762, mx: 'auto' }}>
         <Typography
           sx={{
             fontSize: { xs: '1.8rem', md: '2.625rem' },
