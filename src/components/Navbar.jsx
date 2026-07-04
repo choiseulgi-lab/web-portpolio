@@ -8,7 +8,7 @@ const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
 
 const navLinks = [
   { label: 'About Me', path: '/about' },
-  { label: 'Web Design', href: 'https://drive.google.com/uc?export=download&id=1q803WkrCIcXrSKl6rXk7jIKebjMihU_k' },
+  { label: 'Web Design', href: 'https://drive.google.com/file/d/1q803WkrCIcXrSKl6rXk7jIKebjMihU_k/view?usp=sharing' },
   { label: 'Editorial Design', path: '/projects' },
 ]
 
