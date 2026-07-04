@@ -1,4 +1,10 @@
 import { useState, useEffect } from 'react'
+import photo1 from '../assets/project01-main.jpg'
+import photo2 from '../assets/project02-main.jpg'
+import photo3 from '../assets/project03-main.jpg'
+import photo4 from '../assets/project04-main.jpg'
+import photo5 from '../assets/project05-main.jpg'
+import photo6 from '../assets/project06-main.jpg'
 import {
   Box, Typography, Container, Button,
   TextField, Divider, Snackbar, Alert,
@@ -200,19 +206,22 @@ function HeroSection() {
           sx={{
             display: 'flex',
             gap: '20px',
-            animation: 'photoLeft 22s linear infinite',
+            animation: 'photoLeft 26s linear infinite',
             width: 'max-content',
           }}
         >
-          {[0, 1, 2, 3, 4, 0, 1, 2, 3, 4].map((_, i) => (
+          {[photo1, photo2, photo3, photo4, photo5, photo6, photo1, photo2, photo3, photo4, photo5, photo6].map((src, i) => (
             <Box
               key={i}
+              component="img"
+              src={src}
               sx={{
                 width: '427px',
                 height: '460px',
                 flexShrink: 0,
-                backgroundColor: '#242424',
-                border: '1px solid rgba(255,255,255,0.06)',
+                objectFit: 'cover',
+                objectPosition: 'top',
+                display: 'block',
               }}
             />
           ))}
