@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 
 const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
-const DRIVE_URL = 'https://drive.google.com/file/d/1q803WkrCIcXrSKl6rXk7jIKebjMihU_k/view?usp=sharing'
+const PC_URL     = 'https://drive.google.com/file/d/10WFrFyzY9-qzqWNVWRSAoG2BjbAshF_c/view?usp=sharing'
+const MOBILE_URL = 'https://drive.google.com/file/d/1jHO4RdJauhlDtm01QdL1IkJtSXNDfUKI/view?usp=sharing'
 
 export default function WebDesignLoading() {
   const [dots, setDots] = useState('')
@@ -12,8 +13,9 @@ export default function WebDesignLoading() {
       setDots(prev => prev.length >= 3 ? '' : prev + '.')
     }, 400)
 
+    const isMobile = window.innerWidth < 768
     const redirect = setTimeout(() => {
-      window.location.href = DRIVE_URL
+      window.location.href = isMobile ? MOBILE_URL : PC_URL
     }, 2000)
 
     return () => {
