@@ -26,7 +26,7 @@ const MARQUEE_BASE = "Hello :D — I'm Seulgi Choi "
 /* ── 1. Hero 섹션 ───────────────────────────────────────────── */
 function HeroSection() {
   const marqueeLine = MARQUEE_BASE.repeat(8)
-  const fullHeadline = `${OPEN_Q}왜 여기에 있어야 할까${CLOSE_Q}`
+  const fullHeadline = '모든 요소에는 이유가 있다'
 
   const [typed, setTyped] = useState('')
   const [typingDone, setTypingDone] = useState(false)
