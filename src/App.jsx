@@ -5,6 +5,7 @@ import BackToTop from './components/BackToTop'
 import Home from './pages/Home'
 import AboutMe from './pages/AboutMe'
 import Projects from './pages/Projects'
+import WebDesignLoading from './pages/WebDesignLoading'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutMe />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/web-design" element={<WebDesignLoading />} />
       </Routes>
       <BackToTop />
     </>
