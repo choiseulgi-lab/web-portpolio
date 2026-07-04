@@ -54,7 +54,7 @@ function HeroSection() {
     <Box
       sx={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: { xs: 'auto', md: '100vh' },
         backgroundColor: '#171717',
         pt: '64px',
         '@keyframes marqFwd': {
@@ -124,15 +124,16 @@ function HeroSection() {
           px: { xs: '20px', md: '80px' },
         }}
       >
-        <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
+        <Box sx={{ minHeight: { xs: '2rem', sm: '4rem', md: '7rem' }, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: { xs: 4, md: 7 } }}>
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '3rem', sm: '4.5rem', md: '5.625rem' },
+              fontSize: 'clamp(1.5rem, 8vw, 5.625rem)',
               fontWeight: 600,
               color: '#ffffff',
               letterSpacing: '-0.01em',
               lineHeight: 1.1,
+              whiteSpace: 'nowrap',
             }}
           >
             {typed}
@@ -241,8 +242,8 @@ function HowIDesignSection() {
     <Box
       sx={{
         backgroundColor: '#171717',
-        pt: '250px',
-        pb: '150px',
+        pt: { xs: '80px', md: '167px' },
+        pb: { xs: '60px', md: '150px' },
         position: 'relative',
         zIndex: 5,
       }}
@@ -287,7 +288,7 @@ function HowIDesignSection() {
             {'작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
           </Typography>
 
-          <Box sx={{ mt: '40px', display: 'flex', justifyContent: 'center', gap: { xs: '32px', md: '80px' } }}>
+          <Box sx={{ mt: '40px', display: 'flex', justifyContent: { xs: 'flex-start', md: 'center' }, flexWrap: 'wrap', gap: { xs: '20px 32px', md: '80px' } }}>
             {[
               { Icon: IconStack2,   label: '분명한 우선순위' },
               { Icon: IconRoute,    label: '자연스러운 흐름' },
@@ -295,7 +296,7 @@ function HowIDesignSection() {
             ].map(({ Icon, label }) => (
               <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Icon size={20} stroke={1.5} color={LIME} />
-                <Typography sx={{ fontFamily: FONT, fontSize: '0.875rem', fontWeight: 500, color: '#D2D2D2', letterSpacing: '-0.01em' }}>
+                <Typography sx={{ fontFamily: FONT, fontSize: '0.875rem', fontWeight: 500, color: '#D2D2D2', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
                   {label}
                 </Typography>
               </Box>
@@ -656,7 +657,7 @@ function ContactSection() {
       id="contact"
       sx={{
         backgroundColor: '#121212',
-        py: '120px',
+        py: { xs: '60px', md: '120px' },
         position: 'relative',
         zIndex: 5,
       }}
@@ -779,7 +780,7 @@ function GuestbookSection() {
     <Box
       sx={{
         backgroundColor: '#171717',
-        py: '120px',
+        py: { xs: '60px', md: '120px' },
         position: 'relative',
         zIndex: 5,
       }}
