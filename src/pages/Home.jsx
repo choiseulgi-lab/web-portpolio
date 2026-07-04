@@ -147,7 +147,7 @@ function HeroSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
+              fontSize: { xs: '1.25rem', sm: '2.2rem', md: '3.125rem' },
               fontWeight: 500,
               lineHeight: 1.35,
               letterSpacing: '-0.01em',
@@ -162,7 +162,7 @@ function HeroSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '1.5rem', sm: '2.2rem', md: '3.125rem' },
+              fontSize: { xs: '1.25rem', sm: '2.2rem', md: '3.125rem' },
               fontWeight: 500,
               lineHeight: 1.35,
               letterSpacing: '-0.01em',
@@ -180,7 +180,7 @@ function HeroSection() {
         <Typography
           sx={{
             fontFamily: FONT,
-            fontSize: '1.125rem',
+            fontSize: { xs: '0.875rem', md: '1.125rem' },
             color: 'rgba(255,255,255,0.28)',
             letterSpacing: '-0.01em',
             fontWeight: 400,
@@ -261,7 +261,7 @@ function HowIDesignSection() {
           <Typography
             sx={{
               fontFamily: FONT,
-              fontSize: { xs: '2.8rem', md: '4.375rem' },
+              fontSize: { xs: '1.5rem', md: '4.375rem' },
               fontWeight: 600,
               color: '#ffffff',
               letterSpacing: '-0.01em',
@@ -271,8 +271,25 @@ function HowIDesignSection() {
           >
             {'어떻게'}<br />{'디자인하나요?'}
           </Typography>
+          {/* 모바일: 줄바꿈 없이 자연스럽게 흐름 */}
           <Typography
             sx={{
+              display: { xs: 'block', md: 'none' },
+              fontFamily: FONT,
+              fontSize: '1rem',
+              fontWeight: 500,
+              color: '#D2D2D2',
+              lineHeight: 1.7,
+              wordBreak: 'keep-all',
+              textAlign: 'left',
+            }}
+          >
+            {'모든 디자인에 명확한 이유가 있어야 한다고 생각합니다. 정보의 우선순위를 분명히 전달하고 사용자가 자연스럽게 흐름을 따라갈 수 있는 설계를 추구합니다. 작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
+          </Typography>
+          {/* 데스크탑: 줄바꿈 유지 */}
+          <Typography
+            sx={{
+              display: { xs: 'none', md: 'block' },
               fontFamily: FONT,
               fontSize: '1rem',
               fontWeight: 500,
@@ -288,15 +305,15 @@ function HowIDesignSection() {
             {'작은 간격과 정렬, 터치 영역 하나에도 근거를 두는 디테일을 만들어가고 싶습니다.'}
           </Typography>
 
-          <Box sx={{ mt: '40px', display: 'flex', justifyContent: { xs: 'flex-start', md: 'center' }, flexWrap: 'wrap', gap: { xs: '20px 32px', md: '80px' } }}>
+          <Box sx={{ mt: '40px', display: 'flex', justifyContent: { xs: 'space-between', md: 'center' }, flexWrap: 'nowrap', gap: { xs: 0, md: '80px' } }}>
             {[
               { Icon: IconStack2,   label: '분명한 우선순위' },
               { Icon: IconRoute,    label: '자연스러운 흐름' },
               { Icon: IconGridDots, label: '근거 있는 디테일' },
             ].map(({ Icon, label }) => (
-              <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: { xs: '6px', md: '10px' } }}>
                 <Icon size={20} stroke={1.5} color={LIME} />
-                <Typography sx={{ fontFamily: FONT, fontSize: '0.875rem', fontWeight: 500, color: '#D2D2D2', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
+                <Typography sx={{ fontFamily: FONT, fontSize: { xs: '0.75rem', md: '0.875rem' }, fontWeight: 500, color: '#D2D2D2', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
                   {label}
                 </Typography>
               </Box>
@@ -674,7 +691,7 @@ function ContactSection() {
         >
           <Typography
             sx={{
-              fontSize: { xs: '1.8rem', md: '2.625rem' },
+              fontSize: { xs: '1.125rem', md: '2.625rem' },
               fontWeight: 600,
               fontFamily: FONT,
               color: '#E0E0E0',
@@ -691,11 +708,11 @@ function ContactSection() {
           <Typography
             sx={{
               color: '#D5D5D5',
-              fontSize: '1rem',
+              fontSize: { xs: '0.75rem', md: '1rem' },
               fontFamily: FONT,
               textAlign: 'center',
               mb: 8,
-              wordBreak: 'keep-all',
+              whiteSpace: { xs: 'nowrap', md: 'normal' },
             }}
           >
             {'함께 성장할 기회를 찾고 있습니다.'}
@@ -789,7 +806,7 @@ function GuestbookSection() {
         <Box sx={{ maxWidth: 762, mx: 'auto' }}>
         <Typography
           sx={{
-            fontSize: { xs: '1.8rem', md: '2.625rem' },
+            fontSize: { xs: '1.125rem', md: '2.625rem' },
             fontWeight: 600,
             fontFamily: FONT,
             color: '#E0E0E0',
@@ -804,7 +821,7 @@ function GuestbookSection() {
           {'Leave a Message'}
         </Typography>
         <Typography
-          sx={{ color: '#D5D5D5', fontSize: '1rem', fontFamily: FONT, textAlign: 'center', mb: 8, wordBreak: 'keep-all' }}
+          sx={{ color: '#D5D5D5', fontSize: { xs: '0.75rem', md: '1rem' }, fontFamily: FONT, textAlign: 'center', mb: 8, whiteSpace: { xs: 'nowrap', md: 'normal' } }}
         >
           {'방문해주셔서 감사합니다. 짧은 인사나 피드백을 남겨주세요.'}
         </Typography>
