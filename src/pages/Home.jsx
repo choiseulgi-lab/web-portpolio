@@ -217,7 +217,7 @@ function HeroSection() {
               src={src}
               sx={{
                 width: '427px',
-                height: '460px',
+                height: '427px',
                 flexShrink: 0,
                 objectFit: 'cover',
                 objectPosition: 'top',
