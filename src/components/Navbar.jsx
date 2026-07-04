@@ -8,7 +8,7 @@ const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
 
 const navLinks = [
   { label: 'About Me', path: '/about' },
-  { label: 'Web Design', path: '/projects' },
+  { label: 'Web Design', href: 'https://drive.google.com/uc?export=download&id=1q803WkrCIcXrSKl6rXk7jIKebjMihU_k' },
   { label: 'Editorial Design', path: '/projects' },
 ]
 
@@ -49,9 +49,33 @@ export default function Navbar() {
 
           {/* 데스크탑 메뉴 */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5 }}>
-            {navLinks.map(({ label, path }) => {
-              const active = location.pathname === path
-              return (
+            {navLinks.map(({ label, path, href }) => {
+              const active = path && location.pathname === path
+              return href ? (
+                <Button
+                  key={label}
+                  component="a"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#FBFBFB',
+                    borderBottom: '2px solid transparent',
+                    borderRadius: 0,
+                    px: 2,
+                    fontSize: '1.125rem',
+                    fontWeight: 500,
+                    lineHeight: 1.5,
+                    letterSpacing: '-0.01em',
+                    fontFamily: FONT,
+                    textTransform: 'none',
+                    transition: 'color 0.2s',
+                    '&:hover': { color: 'var(--color-primary)', backgroundColor: 'transparent' },
+                  }}
+                >
+                  {label}
+                </Button>
+              ) : (
                 <Button
                   key={label}
                   component={Link}
@@ -112,13 +136,13 @@ export default function Navbar() {
 
         {/* 메뉴 목록 */}
         <List sx={{ px: '20px', mt: 4, flexGrow: 1 }}>
-          {navLinks.map(({ label, path }) => {
-            const active = location.pathname === path
+          {navLinks.map(({ label, path, href }) => {
+            const active = path && location.pathname === path
             return (
               <ListItemButton
                 key={label}
-                component={Link}
-                to={path}
+                component={href ? 'a' : Link}
+                {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : { to: path })}
                 onClick={() => setOpen(false)}
                 sx={{
                   py: 2.5,

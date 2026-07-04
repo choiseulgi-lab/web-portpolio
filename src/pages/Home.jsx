@@ -201,7 +201,7 @@ function HeroSection() {
           overflow: 'hidden',
           mt: { xs: '48px', sm: '64px', md: '200px' },
           opacity: typingDone ? 1 : 0,
-          transition: 'opacity 0.8s ease 0.9s',
+          transition: 'opacity 1.4s ease 1.8s',
         }}
       >
         <Box
