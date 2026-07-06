@@ -8,8 +8,8 @@ const FONT = 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
 
 const navLinks = [
   { label: 'About Me', path: '/about' },
-  { label: 'Web Design', path: '/web-design' },
-  { label: 'Editorial Design', path: '/projects' },
+  { label: 'UIUX Design', href: 'https://drive.google.com/file/d/1R405IYRoMo69toVvkW4QN2fWmilDcAq-/view?usp=sharing' },
+  { label: 'Editorial Design', href: 'https://drive.google.com/file/d/1qYLdqNKw2VLrf8i226BtYgXDfD0snAbI/view?usp=sharing' },
 ]
 
 export default function Navbar() {
