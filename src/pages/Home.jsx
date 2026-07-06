@@ -759,32 +759,6 @@ function ContactSection() {
           ))}
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 4, mt: 5, justifyContent: 'center' }}>
-          {[
-            { label: '/GITHUB', href: 'https://github.com/choiseulgi' },
-            { label: '/INSTAGRAM', href: '#' },
-          ].map(({ label, href }) => (
-            <Typography
-              key={label}
-              component="a"
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                color: '#919191',
-                textDecoration: 'none',
-                fontSize: '0.875rem',
-                fontFamily: FONT,
-                letterSpacing: '-0.01em',
-                fontWeight: 500,
-                transition: 'color 0.35s ease',
-                '&:hover': { color: '#E0E0E0' },
-              }}
-            >
-              {label}
-            </Typography>
-          ))}
-        </Box>
         </Box>
 
       </Container>
