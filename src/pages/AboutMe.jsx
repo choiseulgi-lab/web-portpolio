@@ -19,7 +19,7 @@ const aboutMeData = {
     education: [
       { date: '2026. 07', content: "SBS아카데미 '웹디자이너 실무자 양성과정' 수료" },
       { date: '2023. 12', content: "그린AI캠퍼스 '디지털 편집디자인 인재 양성과정' 수료" },
-      { date: '2016. 02', content: '전남대학교 수산과학과 졸업' },
+      { date: '2016. 02', content: '전남대학교 수산과학과 대학원 졸업' },
       { date: '2014. 02', content: '전남대학교 해양생산관리학과 졸업' },
     ],
     certification: [
